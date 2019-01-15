@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', (req,res) => {
-    res.send('<h1>Selamat Datang di API!</h1>');
+    res.send('<h1>Selamat Datang di Node.js Mysql!</h1>');
 })
 
 app.get('/getlistbrand', (req,res) => {
@@ -184,4 +184,4 @@ app.delete('/deletebrand/:id', (req,res) => {
 
 })
 
-app.listen(port, () => console.log('Node is running, API active at port: ' + PORT));
+app.listen(PORT, () => console.log('Node is running, API active at port: ' + PORT));
