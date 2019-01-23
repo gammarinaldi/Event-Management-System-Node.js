@@ -4,7 +4,7 @@ const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'ammagg291088',
-    database: 'gammapedia',
+    database: 'purwadhikastore',
     port: 3306
 });
 

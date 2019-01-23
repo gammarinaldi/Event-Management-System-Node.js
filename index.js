@@ -12,10 +12,11 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', (req,res) => {
-    res.send('<h1>Selamat Datang di Node.js Mysql!</h1>');
+    res.send('<h3>Selamat Datang di API Purwadhikastore, dibuat menggunakan Node.js dengan database MySQL.</h3>');
 });
 
 const {
+    authRouter,
     usersRouter,
     productsRouter,
     trxRouter,
@@ -27,6 +28,7 @@ const {
     logRouter
 } = require('./routers');
 
+app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/trx', trxRouter);

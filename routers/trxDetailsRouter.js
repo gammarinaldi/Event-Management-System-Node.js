@@ -7,8 +7,4 @@ router.get('/getlisttrxdetails', trxDetailsController.getListTrxDetails);
 
 router.post('/addtrxdetail', trxDetailsController.addTrxDetail);
 
-router.put('/edittrxdetail/:id', trxDetailsController.editTrxDetail);
-
-router.delete('/deletetrxdetail/:id', trxDetailsController.deleteTrxDetail);
-
 module.exports = router;
