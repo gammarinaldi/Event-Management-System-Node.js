@@ -4,12 +4,12 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 1988;
 
-var app = express({defaultErrorHandler:false});
+var app = express({defaultErrorHandler:false}); //Kirim error gak pake throw
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:false})); //Biar dari fornt end bisa kirim image
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static('public')); //Untuk akses folder public
 
 app.get('/', (req,res) => {
     res.send('<h3>Selamat Datang di API Purwadhikastore, dibuat menggunakan Node.js dengan database MySQL.</h3>');
