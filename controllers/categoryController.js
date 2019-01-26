@@ -9,6 +9,15 @@ module.exports = {
         })   
     },
 
+    getCategory: (req,res) => {
+        var CategoryId = req.body.id;
+        var sql = `SELECT * FROM category WHERE id = ${CategoryId}`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        })   
+    },
+
     addCategory: (req,res) => {
         try {
             var sql = 'INSERT INTO category SET ?';

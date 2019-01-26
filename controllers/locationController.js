@@ -9,9 +9,19 @@ module.exports = {
         })   
     },
 
+    getLocation: (req,res) => {
+        var idLocation = req.body.id;
+        var sql = `SELECT * FROM location WHERE id = ${idLocation}`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        })   
+    },
+
     addLocation: (req,res) => {
         try {
             var sql = 'INSERT INTO location SET ?';
+            var data = req.body;
             conn.query(sql, data, (err, results) => {
                 if(err) {
                     return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err.message });

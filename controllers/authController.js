@@ -4,7 +4,7 @@ const transporter = require('../helpers/nodemailer');
 
 module.exports = {
     login: (req,res) => {
-        var { username, password } = req.query;
+        var { username, password } = req.body;
         var hashPassword = Crypto.createHmac("sha256","password").update(password).digest("hex");
         var sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${hashPassword}'`;
         conn.query(sql, (err, results) => {

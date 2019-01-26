@@ -9,6 +9,15 @@ module.exports = {
         })   
     },
 
+    getProduct: (req,res) => {
+        var productId = req.body.id;
+        var sql = `SELECT * FROM products WHERE id = ${productId}`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        })   
+    },
+
     addProduct: (req,res) => {
         try {
             var sql = 'INSERT INTO products SET ?';
