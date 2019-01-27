@@ -4,7 +4,16 @@ var { uploader } = require('../helpers/uploader');
 
 module.exports = {
     getListTrx: (req,res) => {
-        var sql = 'SELECT * FROM trx;';
+        var sql = `SELECT * FROM trx`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        })   
+    },
+
+    getTrx: (req,res) => {
+        var username = req.body;
+        var sql = `SELECT * FROM trx WHERE username = ${username}`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);

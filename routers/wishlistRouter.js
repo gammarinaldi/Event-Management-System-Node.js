@@ -3,7 +3,7 @@ var router = express.Router();
 const { wishlistController } = require('../controllers');
 
 //WISHLIST
-router.get('/getlistwishlist', wishlistController.getListWishlist);
+router.post('/getlistwishlist', wishlistController.getListWishlist);
 
 router.post('/addwishlist', wishlistController.addWishlist);
 

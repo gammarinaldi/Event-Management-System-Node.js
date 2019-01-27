@@ -2,11 +2,12 @@ const conn = require('../database');
 
 module.exports = {
     getListCart: (req,res) => {
-        var sql = 'SELECT * FROM cart;';
+        var username = req.body;
+        var sql = `SELECT * FROM cart WHERE username = '${username}'`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
-        })   
+        });   
     },
 
     addCart: (req,res) => {

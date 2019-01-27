@@ -2,7 +2,8 @@ const conn = require('../database');
 
 module.exports = {
     getListWishlist: (req,res) => {
-        var sql = 'SELECT * FROM wishlist;';
+        var username = req.body.username;
+        var sql = `SELECT * FROM wishlist WHERE username = ${username}`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);

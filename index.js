@@ -32,7 +32,7 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/trx', trxRouter);
-app.use('/trxDetails', trxDetailsRouter);
+app.use('/trxdetails', trxDetailsRouter);
 app.use('/cart', cartRouter);
 app.use('/category', categoryRouter);
 app.use('/location', locationRouter);

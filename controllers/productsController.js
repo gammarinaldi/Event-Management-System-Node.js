@@ -11,7 +11,13 @@ module.exports = {
 
     getProduct: (req,res) => {
         var productId = req.body.id;
-        var sql = `SELECT * FROM products WHERE id = ${productId}`;
+        var creator = req.body.creator;
+        var createdBy = req.body.createdBy;
+        if(productId) {
+            var sql = `SELECT * FROM products WHERE id = ${productId}`;
+        } else {
+            var sql = `SELECT * FROM products WHERE creator = ${creator} AND createdBy = ${createdBy}`;
+        }
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
@@ -20,6 +26,7 @@ module.exports = {
 
     addProduct: (req,res) => {
         try {
+            var data = req.body;
             var sql = 'INSERT INTO products SET ?';
             conn.query(sql, data, (err, results) => {
                 if(err) {
