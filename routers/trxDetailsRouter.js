@@ -5,6 +5,8 @@ const { trxDetailsController } = require('../controllers');
 //TRX DETAILS
 router.post('/getlisttrxdetails', trxDetailsController.getListTrxDetails);
 
+router.post('/gettrxdetails', trxDetailsController.getTrxDetails);
+
 router.post('/addtrxdetail', trxDetailsController.addTrxDetail);
 
 module.exports = router;

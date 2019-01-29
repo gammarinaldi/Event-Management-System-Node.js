@@ -9,8 +9,17 @@ module.exports = {
         })   
     },
 
+    getTrxDetails: (req,res) => {
+        var sql = `SELECT * FROM trxdetails WHERE username = ${req.body.username}`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        })   
+    },
+
     addTrxDetail: (req,res) => {
         try {
+            var data = req.body;
             var sql = 'INSERT INTO trxdetails SET ?';
             conn.query(sql, data, (err, results) => {
                 if(err) {

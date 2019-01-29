@@ -48,25 +48,25 @@ module.exports = {
     },
 
     editProduct: (req,res) => {
-        var ProductId = req.params.id;
-        var sql = `SELECT * FROM products WHERE id = ${ProductId};`;
+        var sql = `SELECT * FROM products WHERE id = '${req.params.id}'`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
     
             if(results.length > 0) {
+                var data = req.body;
                 try {
-                    sql = `UPDATE products SET ? WHERE id = ${brandId};`
-                    conn.query(sql,data, (err1,results1) => {
+                    sql = `UPDATE products SET ? WHERE id = '${req.params.id}'`;
+                    conn.query(sql, data, (err1,results1) => {
                         if(err1) {
                             return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err1.message });
                         }
-                        sql = `SELECT * FROM products;`;
+                        sql = `SELECT * FROM products`;
                         conn.query(sql, (err2,results2) => {
                             if(err2) {
                                 return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err1.message });
                             }
                             res.send(results2);
-                        })
+                        });
                     })
                 }
                 catch(err){

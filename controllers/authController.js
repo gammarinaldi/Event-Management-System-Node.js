@@ -8,7 +8,21 @@ module.exports = {
         var hashPassword = Crypto.createHmac("sha256","password").update(password).digest("hex");
         var sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${hashPassword}'`;
         conn.query(sql, (err, results) => {
-            if(err) throw err;
+            if(err) { 
+                res.send({ status: 'error', message: 'Login query failed.' }); //res.send masuknya ke then axios
+                res.end();
+            }
+            res.send(results);
+        })   
+    },
+
+    keepLogin: (req,res) => {
+        var sql = `SELECT * FROM users WHERE username = '${req.body.username}'`;
+        conn.query(sql, (err, results) => {
+            if(err) { 
+                res.send({ status: 'error', message: 'Keeplogin query failed.' }); //res.send masuknya ke then axios
+                res.end();
+            }
             res.send(results);
         })   
     },
@@ -18,7 +32,7 @@ module.exports = {
         var sql = `SELECT username FROM users WHERE username = '${username}'`;
         conn.query(sql, (err,results) => {
             if(err) { 
-                res.send({ status: 'error', message: 'Query error.' }); //res.send masuknya ke then axios
+                res.send({ status: 'error', message: 'Check username in register failed.' }); //res.send masuknya ke then axios
                 res.end();
             }
             
@@ -41,7 +55,7 @@ module.exports = {
                 sql = `INSERT INTO users SET ?`;
                 conn.query(sql, dataUser, (err1,result1) => {
                     if(err1) { 
-                        res.send({ status: 'error', message: 'System error' }); //res.send masuknya ke then axios
+                        res.send({ status: 'error', message: 'Register insert query failed.' }); //res.send masuknya ke then axios
                         res.end();
                     }
                     res.send({ username, fullname, email, phone, role: 'MEMBER', status: 'UNVERIFIED' })

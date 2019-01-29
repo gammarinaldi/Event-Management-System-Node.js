@@ -10,8 +10,7 @@ module.exports = {
     },
 
     getCategory: (req,res) => {
-        var CategoryId = req.body.id;
-        var sql = `SELECT * FROM category WHERE id = ${CategoryId}`;
+        var sql = `SELECT * FROM category WHERE id = '${req.body.id}'`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
@@ -20,6 +19,7 @@ module.exports = {
 
     addCategory: (req,res) => {
         try {
+            var data = req.body;
             var sql = 'INSERT INTO category SET ?';
             conn.query(sql, data, (err, results) => {
                 if(err) {

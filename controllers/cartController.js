@@ -12,6 +12,7 @@ module.exports = {
 
     addCart: (req,res) => {
         try {
+            var data = req.body;
             var sql = 'INSERT INTO cart SET ?';
             conn.query(sql, data, (err, results) => {
                 if(err) {

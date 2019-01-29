@@ -11,6 +11,7 @@ module.exports = {
 
     addUser: (req,res) => {
         try {
+            var data = req.body;
             var sql = 'INSERT INTO users SET ?';
             conn.query(sql, data, (err, results) => {
                 if(err) {
