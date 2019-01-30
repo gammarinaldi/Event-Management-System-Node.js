@@ -3,13 +3,24 @@ const conn = require('../database');
 module.exports = {
     getListWishlist: (req,res) => {
         var sql =  `SELECT 
-                    products.item, 
-                    products.price, 
-                    products.img 
+                    wishlist.id AS idWishlist,
+                    products.id AS idProduct,
+                    products.item AS item, 
+                    products.price AS price, 
+                    products.img AS img,
+                    category.name AS categoryName
                     FROM products
                     JOIN wishlist ON wishlist.idProduct = products.id
                     JOIN category ON wishlist.idCategory = category.id
                     WHERE wishlist.username = '${req.body.username}'`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        })   
+    },
+
+    getWishlist: (req,res) => {
+        var sql =  `SELECT id FROM wishlist WHERE idProduct = '${req.body.idProduct}'`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
@@ -49,15 +60,15 @@ module.exports = {
     },
 
     editWishlist: (req,res) => {
-        var WishlistId = req.params.id;
-        var sql = `SELECT * FROM wishlist WHERE id = ${WishlistId};`;
+        var sql = `SELECT * FROM wishlist WHERE id = '${req.params.id}';`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
     
             if(results.length > 0) {
                 try {
-                    sql = `UPDATE wishlist SET ? WHERE id = ${brandId};`
-                    conn.query(sql,data, (err1,results1) => {
+                    var data = req.body;
+                    sql = `UPDATE wishlist SET ? WHERE id = '${req.params.id}';`
+                    conn.query(sql, data, (err1,results1) => {
                         if(err1) {
                             return res.status(500).json({ 
                                 message: "There's an error on the server. Please contact the administrator.", 
@@ -87,8 +98,7 @@ module.exports = {
     },
 
     deleteWishlist: (req,res) => {
-        var WishlistId = req.params.id;
-        var sql = `SELECT * FROM wishlist WHERE id = ${WishlistId};`;
+        var sql = `SELECT * FROM wishlist WHERE id = '${req.params.id}';`;
         conn.query(sql, (err, results) => {
             if(err) {
                 return res.status(500).json({ 
@@ -97,7 +107,7 @@ module.exports = {
             }
             
             if(results.length > 0) {
-                sql = `DELETE FROM wishlist WHERE id = ${WishlistId};`
+                sql = `DELETE FROM wishlist WHERE id = '${req.params.id}';`
                 conn.query(sql, (err1,results1) => {
                     if(err1) {
                         return res.status(500).json({ 

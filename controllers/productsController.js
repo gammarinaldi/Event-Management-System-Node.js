@@ -14,9 +14,9 @@ module.exports = {
         var creator = req.body.creator;
         var createdBy = req.body.createdBy;
         if(productId) {
-            var sql = `SELECT * FROM products WHERE id = ${productId}`;
+            var sql = `SELECT * FROM products WHERE id = '${productId}'`;
         } else {
-            var sql = `SELECT * FROM products WHERE creator = ${creator} AND createdBy = ${createdBy}`;
+            var sql = `SELECT * FROM products WHERE creator = '${creator}' AND createdBy = '${createdBy}'`;
         }
         conn.query(sql, (err, results) => {
             if(err) throw err;
@@ -30,20 +30,26 @@ module.exports = {
             var sql = 'INSERT INTO products SET ?';
             conn.query(sql, data, (err, results) => {
                 if(err) {
-                    return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err.message });
+                    return res.status(500).json({ 
+                        message: "There's an error on the server. Please contact the administrator.", 
+                        error: err.message });
                 }
                 
                 sql = 'SELECT * from products;';
                 conn.query(sql, (err, results) => {
                     if(err) {
-                        return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err.message });
+                        return res.status(500).json({ 
+                            message: "There's an error on the server. Please contact the administrator.", 
+                            error: err.message });
                     }
                     
                     res.send(results);
                 })   
             })  
         } catch(err) {
-            return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err.message });
+            return res.status(500).json({ 
+                message: "There's an error on the server. Please contact the administrator.", 
+                error: err.message });
         }
     },
 
@@ -58,27 +64,32 @@ module.exports = {
                     sql = `UPDATE products SET ? WHERE id = '${req.params.id}'`;
                     conn.query(sql, data, (err1,results1) => {
                         if(err1) {
-                            return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err1.message });
+                            return res.status(500).json({ 
+                                message: "There's an error on the server. Please contact the administrator.", 
+                                error: err1.message });
                         }
                         sql = `SELECT * FROM products`;
                         conn.query(sql, (err2,results2) => {
                             if(err2) {
-                                return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err1.message });
+                                return res.status(500).json({ 
+                                    message: "There's an error on the server. Please contact the administrator.", 
+                                    error: err1.message });
                             }
                             res.send(results2);
                         });
                     })
                 }
                 catch(err){
-                    return res.status(500).json({ message: "There's an error on the server. Please contact the administrator.", error: err.message });
+                    return res.status(500).json({ 
+                        message: "There's an error on the server. Please contact the administrator.", 
+                        error: err.message });
                 }
             }
         })
     },
 
     deleteProduct: (req,res) => {
-        var ProductId = req.params.id;
-        var sql = `SELECT * FROM products WHERE id = ${ProductId};`;
+        var sql = `SELECT * FROM products WHERE id = ${req.params.id};`;
         conn.query(sql, (err, results) => {
             if(err) {
                 return res.status(500).json({ 
@@ -87,7 +98,7 @@ module.exports = {
             }
             
             if(results.length > 0) {
-                sql = `DELETE FROM products WHERE id = ${ProductId};`
+                sql = `DELETE FROM products WHERE id = ${req.params.id};`
                 conn.query(sql, (err1,results1) => {
                     if(err1) {
                         return res.status(500).json({ 

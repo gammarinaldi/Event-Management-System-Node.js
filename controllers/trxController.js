@@ -69,8 +69,7 @@ module.exports = {
     },
 
     editTrx: (req,res) => {
-        var TrxId = req.params.id;
-        var sql = `SELECT * FROM trx WHERE id = ${TrxId};`;
+        var sql = `SELECT * FROM trx WHERE id = ${req.params.id};`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
     
@@ -90,7 +89,7 @@ module.exports = {
     
                     try {
                         if(imagePath) {
-                            sql = `UPDATE trx SET ? WHERE id = ${TrxId};`
+                            sql = `UPDATE trx SET ? WHERE id = ${req.params.id};`
                             conn.query(sql,data, (err1,results1) => {
                                 if(err1) {
                                     fs.unlinkSync('./public' + imagePath);
@@ -114,7 +113,7 @@ module.exports = {
                             })
                         }
                         else {
-                            sql = `UPDATE trx SET nama='${data.nama}' WHERE id = ${TrxId};`
+                            sql = `UPDATE trx SET nama='${data.nama}' WHERE id = ${req.params.id};`
                             conn.query(sql, (err1,results1) => {
                                 if(err1) {
                                     return res.status(500).json({ 
@@ -145,41 +144,5 @@ module.exports = {
                 })
             }
         })
-    },
-
-    deleteTrx: (req,res) => {
-        var TrxId = req.params.id;
-        var sql = `SELECT * FROM trx WHERE id = ${TrxId};`;
-        conn.query(sql, (err, results) => {
-            if(err) {
-                return res.status(500).json({ 
-                    message: "There's an error on the server. Please contact the administrator.", 
-                    error: err.message });
-            }
-            
-            if(results.length > 0) {
-                sql = `DELETE FROM trx WHERE id = ${TrxId};`
-                conn.query(sql, (err1,results1) => {
-                    if(err1) {
-                        return res.status(500).json({ 
-                            message: "There's an error on the server. Please contact the administrator.", 
-                            error: err1.message });
-                    }
-    
-                    fs.unlinkSync('./public' + results[0].image);
-                    sql = `SELECT * FROM trx;`;
-                    conn.query(sql, (err2,results2) => {
-                        if(err2) {
-                            return res.status(500).json({ 
-                                message: "There's an error on the server. Please contact the administrator.", 
-                                error: err2.message });
-                        }
-    
-                        res.send(results2);
-                    })
-                })
-            }
-        })   
-    
     }
 }

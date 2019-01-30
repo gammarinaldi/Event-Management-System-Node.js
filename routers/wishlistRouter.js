@@ -5,6 +5,8 @@ const { wishlistController } = require('../controllers');
 //WISHLIST
 router.post('/getlistwishlist', wishlistController.getListWishlist);
 
+router.post('/getwishlist', wishlistController.getWishlist);
+
 router.post('/addwishlist', wishlistController.addWishlist);
 
 router.put('/editwishlist/:id', wishlistController.editWishlist);
