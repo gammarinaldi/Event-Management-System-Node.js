@@ -30,8 +30,7 @@ module.exports = {
                     fullname,
                     email,
                     phone,
-                    img: null,
-                    role: 'MEMBER',
+                    role,
                     status: 'UNVERIFIED',
                     lastlogin: new Date()
                  }
