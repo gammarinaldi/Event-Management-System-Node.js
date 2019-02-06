@@ -7,18 +7,23 @@ module.exports = {
         var sql = `SELECT * FROM trx`;
         conn.query(sql, (err, results) => {
             if(err){
-                return res.status(500).json({ message: 'Upload picture failed !', error: err.message });
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
             }
             res.send(results);
         })   
     },
 
     getTrx: (req,res) => {
-        var username = req.body;
-        var sql = `SELECT * FROM trx WHERE username = '${username}'`;
+        var sql = `SELECT * FROM trx WHERE username = '${req.body.username}'`;
         conn.query(sql, (err, results) => {
             if(err){
-                return res.status(500).json({ message: 'Upload picture failed !', error: err.message });
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
             }
             res.send(results);
         })   

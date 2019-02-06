@@ -5,18 +5,25 @@ module.exports = {
     getListUsers: (req,res) => {
         var sql = 'SELECT * FROM users;';
         conn.query(sql, (err, results) => {
-            if(err) throw err;
+            if(err) {
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
+            }
             res.send(results);
         })   
     },
 
     addUser: (req,res) => {
-        var { username, password, fullname, email, phone } = req.body;
+        var { username, password, fullname, email, phone, role } = req.body;
         var sql = `SELECT username FROM users WHERE username = '${username}'`;
         conn.query(sql, (err,results) => {
-            if(err) { 
-                res.send({ status: 'error', message: 'Check username in add user failed.' }); //res.send masuknya ke then axios
-                res.end();
+            if(err) {
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
             }
             
             if(results.length > 0) {
@@ -30,17 +37,17 @@ module.exports = {
                     fullname,
                     email,
                     phone,
-                    role,
-                    status: 'UNVERIFIED',
-                    lastlogin: new Date()
+                    role
                  }
                 sql = `INSERT INTO users SET ?`;
-                conn.query(sql, dataUser, (err1,result1) => {
-                    if(err1) { 
-                        res.send({ status: 'error', message: 'Register insert query failed.' }); //res.send masuknya ke then axios
-                        res.end();
+                conn.query(sql, dataUser, (err,result) => {
+                    if(err) { 
+                        return res.status(500).json({ 
+                            message: "There's an error on the server. Please contact the administrator.", 
+                            error: err.message 
+                        });
                     }
-                    res.send(result1)
+                    res.send(result);
                 });
             }
         });
@@ -67,7 +74,7 @@ module.exports = {
                             if(err2) {
                                 return res.status(500).json({ 
                                     message: "There's an error on the server. Please contact the administrator.", 
-                                    error: err1.message 
+                                    error: err2.message 
                                 });
                             }
                             res.send(results2);

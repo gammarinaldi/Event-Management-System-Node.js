@@ -28,7 +28,7 @@ module.exports = {
     },
 
     register: (req,res) => {
-        var { username, password, fullname, email, phone } = req.body;
+        var { username, password, fullname, email, phone, role } = req.body;
         var sql = `SELECT username FROM users WHERE username = '${username}'`;
         conn.query(sql, (err,results) => {
             if(err) { 
@@ -47,10 +47,7 @@ module.exports = {
                     fullname,
                     email,
                     phone,
-                    img: null,
-                    role: 'MEMBER',
-                    status: 'UNVERIFIED',
-                    lastlogin: new Date()
+                    role: 'MEMBER'
                  }
                 sql = `INSERT INTO users SET ?`;
                 conn.query(sql, dataUser, (err1,result1) => {
@@ -58,7 +55,7 @@ module.exports = {
                         res.send({ status: 'error', message: 'Register insert query failed.' }); //res.send masuknya ke then axios
                         res.end();
                     }
-                    res.send({ username, fullname, email, phone, role: 'MEMBER', status: 'UNVERIFIED' })
+                    res.send({ username, fullname, email, phone });
 
                     var verificationLink = `http://localhost:3000/verify?username=${username}&password=${hashPassword}`;
                     var mailOptions = {
@@ -80,6 +77,7 @@ module.exports = {
             }
         });  
     },
+
     verified: (req,res) => {
         var { username, password } = req.body;
         var sql = `SELECT * FROM users WHERE username='${username}' AND password='${password}'`;
