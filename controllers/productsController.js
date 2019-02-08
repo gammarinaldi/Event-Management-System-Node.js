@@ -1,4 +1,6 @@
 const conn = require('../database');
+var fs = require('fs');
+var { uploader } = require('../helpers/uploader');
 
 module.exports = {
     getListProducts: (req,res) => {
@@ -26,65 +28,118 @@ module.exports = {
 
     addProduct: (req,res) => {
         try {
-            var data = req.body;
-            var sql = 'INSERT INTO products SET ?';
-            conn.query(sql, data, (err, results) => {
-                if(err) {
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message });
+
+            const path = '/img/products'; //file save path
+            const upload = uploader(path, 'PRD').fields([{ name: 'img'}]); //uploader(path, 'default prefix')
+    
+            upload(req, res, (err) => {
+                if(err){
+                    return res.status(500).json({ message: 'Upload picture failed !', error: err.message });
                 }
+    
+                const { img } = req.files;
+                const imagePath = img ? path + '/' + img[0].filename : null;
+    
+                const data = JSON.parse(req.body.data);
+                data.img = imagePath;
                 
-                sql = 'SELECT * from products;';
-                conn.query(sql, (err, results) => {
+                var sql = 'INSERT INTO products SET ?';
+                conn.query(sql, data, (err, results) => {
                     if(err) {
+                        fs.unlinkSync('./public' + imagePath);
                         return res.status(500).json({ 
                             message: "There's an error on the server. Please contact the administrator.", 
-                            error: err.message });
+                            error: err.message 
+                        });
                     }
-                    
-                    res.send(results);
-                })   
-            })  
+                   
+                    sql = 'SELECT * FROM products ORDER BY id DESC LIMIT 1';
+                    conn.query(sql, (err, results) => {
+                        if(err) {
+                            return res.status(500).json({ 
+                                message: "There's an error on the server. Please contact the administrator.", 
+                                error: err.message 
+                            });
+                        }
+                        res.send(results);
+                    })   
+                })    
+            })
         } catch(err) {
             return res.status(500).json({ 
                 message: "There's an error on the server. Please contact the administrator.", 
-                error: err.message });
+                error: err.message 
+            });
         }
     },
 
     editProduct: (req,res) => {
-        var sql = `SELECT * FROM products WHERE id = '${req.params.id}'`;
-        conn.query(sql, (err, results) => {
-            if(err) throw err;
-    
-            if(results.length > 0) {
-                var data = req.body;
-                try {
-                    sql = `UPDATE products SET ? WHERE id = '${req.params.id}'`;
-                    conn.query(sql, data, (err1,results1) => {
-                        if(err1) {
+        const path = '/img/products'; //file save path
+        const upload = uploader(path, 'PRD').fields([{ name: 'img'}]); //uploader(path, 'default prefix')
+
+        upload(req, res, (err) => {
+            if(err){
+                return res.status(500).json({ message: 'Upload picture failed !', error: err.message });
+            }
+
+            const { img } = req.files;
+            const imagePath = img ? path + '/' + img[0].filename : null;
+
+            const data = JSON.parse(req.body.data);
+
+            try {
+                if(imagePath) {
+                    data.img = imagePath;
+                    var sql = `UPDATE products SET ? WHERE id = '${req.params.id}'`;
+                    conn.query(sql, data, (err, results) => {
+                        if(err) {
+                            fs.unlinkSync('./public' + imagePath);
                             return res.status(500).json({ 
                                 message: "There's an error on the server. Please contact the administrator.", 
-                                error: err1.message });
+                                error: err.message 
+                            });
                         }
-                        sql = `SELECT * FROM products`;
-                        conn.query(sql, (err2,results2) => {
-                            if(err2) {
+                        //fs.unlinkSync('./public' + results[0].img);
+                        sql = 'SELECT * FROM products ORDER BY id DESC LIMIT 1';
+                        conn.query(sql, (err, results) => {
+                            if(err) {
                                 return res.status(500).json({ 
                                     message: "There's an error on the server. Please contact the administrator.", 
-                                    error: err1.message });
+                                    error: err.message 
+                                });
                             }
-                            res.send(results2);
-                        });
-                    })
+                            res.send(results);
+                        });   
+                    });  
+                } else {
+                    var sql = `UPDATE products SET ? WHERE id = '${req.params.id}'`;
+                    conn.query(sql, data, (err, results) => {
+                        if(err) {
+                            return res.status(500).json({ 
+                                message: "There's an error on the server. Please contact the administrator.", 
+                                error: err.message 
+                            });
+                        }
+                        
+                        sql = 'SELECT * FROM products ORDER BY id DESC LIMIT 1';
+                        conn.query(sql, (err, results) => {
+                            if(err) {
+                                return res.status(500).json({ 
+                                    message: "There's an error on the server. Please contact the administrator.", 
+                                    error: err.message 
+                                });
+                            }
+                            res.send(results);
+                        });   
+                    });
                 }
-                catch(err){
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message });
-                }
+            } catch {
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
             }
+              
         })
     },
 

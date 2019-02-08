@@ -32,7 +32,7 @@ module.exports = {
     addTrx: (req,res) => {
         try {
 
-            const path = '/trx/receipt'; //file save path
+            const path = '/img/receipts'; //file save path
             const upload = uploader(path, 'TRX').fields([{ name: 'receipt'}]); //uploader(path, 'default prefix')
     
             upload(req, res, (err) => {
