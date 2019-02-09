@@ -9,4 +9,6 @@ router.post('/gettrxdetails', trxDetailsController.getTrxDetails);
 
 router.post('/addtrxdetail', trxDetailsController.addTrxDetail);
 
+router.get('/bestseller', trxDetailsController.bestSeller);
+
 module.exports = router;

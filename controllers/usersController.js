@@ -38,7 +38,7 @@ module.exports = {
                     email,
                     phone,
                     role
-                 }
+                }
                 sql = `INSERT INTO users SET ?`;
                 conn.query(sql, dataUser, (err,result) => {
                     if(err) { 
@@ -60,9 +60,18 @@ module.exports = {
     
             if(results.length > 0) {
                 try {
-                    var data = req.body;
+                    var { username, password, fullname, email, phone, role } = req.body;
+                    var hashPassword = Crypto.createHmac("sha256","password").update(password).digest("hex");
+                    var dataUser = { 
+                        username,
+                        password: hashPassword,
+                        fullname,
+                        email,
+                        phone,
+                        role
+                    }
                     sql = `UPDATE users SET ? WHERE id = ${req.params.id};`
-                    conn.query(sql, data, (err1,results1) => {
+                    conn.query(sql, dataUser, (err1,results1) => {
                         if(err1) {
                             return res.status(500).json({ 
                                 message: "There's an error on the server. Please contact the administrator.", 

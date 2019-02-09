@@ -10,7 +10,7 @@ module.exports = {
                     category.name AS category,
                     products.item AS item, 
                     products.price AS price,
-                    trx.totalQty AS qty
+                    trxdetails.qty AS qty
                     FROM products
                     JOIN category ON category.id = products.idCategory
                     JOIN trxdetails ON trxdetails.idProduct = products.id
@@ -31,7 +31,7 @@ module.exports = {
                     category.name AS category,
                     products.item AS item, 
                     products.price AS price,
-                    trx.totalQty AS qty
+                    trxdetails.qty AS qty
                     FROM products
                     JOIN category ON category.id = products.idCategory
                     JOIN trxdetails ON trxdetails.idProduct = products.id
@@ -48,6 +48,30 @@ module.exports = {
             var data = req.body;
             var sql = 'INSERT INTO trxdetails SET ?';
             conn.query(sql, data, (err, results) => {
+                if(err) {
+                    return res.status(500).json({ 
+                        message: "There's an error on the server. Please contact the administrator.", 
+                        error: err.message 
+                    });
+                }
+                res.send(results); 
+            })  
+        } catch(err) {
+            return res.status(500).json({ 
+                message: "There's an error on the server. Please contact the administrator.", 
+                error: err.message 
+            });
+        }
+    },
+
+    bestSeller: (req,res) => {
+        try {
+            var sql =  `SELECT products.item AS item
+                        FROM products
+                        JOIN trxdetails ON trxdetails.idProduct = products.id
+                        GROUP BY products.id
+                        ORDER BY SUM(trxdetails.qty) DESC LIMIT 1;`;
+            conn.query(sql, (err, results) => {
                 if(err) {
                     return res.status(500).json({ 
                         message: "There's an error on the server. Please contact the administrator.", 
