@@ -11,4 +11,6 @@ router.put('/editcart/:id', cartController.editCart);
 
 router.delete('/deletecart/:id', cartController.deleteCart);
 
+router.get('/leftincart', cartController.leftInCart);
+
 module.exports = router;

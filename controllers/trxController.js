@@ -96,5 +96,18 @@ module.exports = {
                 res.send(results2);
             })
         })
-    }
+    },
+
+    totalConfirmed: (req,res) => {
+        var sql = `SELECT COUNT(id) AS confirmed FROM trx WHERE status = 'Confirmed';`;
+        conn.query(sql, (err, results) => {
+            if(err){
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
+            }
+            res.send(results);
+        })   
+    },
 }

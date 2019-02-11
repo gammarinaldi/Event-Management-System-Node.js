@@ -93,5 +93,13 @@ module.exports = {
             }
         })   
     
-    }
+    },
+
+    leftInCart: (req,res) => {
+        var sql =  `SELECT SUM(qty) AS qty FROM cart ORDER BY id;`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            res.send(results);
+        });   
+    },
 }
