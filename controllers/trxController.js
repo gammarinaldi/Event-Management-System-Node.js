@@ -74,5 +74,27 @@ module.exports = {
                 error: err.message 
             });
         }
+    },
+
+    statusUpdate: (req,res) => {
+        var sql = `UPDATE trx SET status = 'Confirmed' WHERE id = '${req.params.id}'`;
+        conn.query(sql, (err, results) => {
+            if(err) {
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
+            }
+            sql = `SELECT id FROM trx WHERE id = '${req.params.id}';`;
+            conn.query(sql, (err2,results2) => {
+                if(err2) {
+                    return res.status(500).json({ 
+                        message: "There's an error on the server. Please contact the administrator.", 
+                        error: err2.message 
+                    });
+                }
+                res.send(results2);
+            })
+        })
     }
 }

@@ -71,9 +71,9 @@ CREATE TABLE IF NOT EXISTS `log` (
   `desc` varchar(300) DEFAULT NULL,
   `datetime` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.log: ~103 rows (approximately)
+-- Dumping data for table purwadhikastore.log: ~6 rows (approximately)
 DELETE FROM `log`;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
 INSERT INTO `log` (`id`, `username`, `role`, `desc`, `datetime`) VALUES
@@ -81,7 +81,8 @@ INSERT INTO `log` (`id`, `username`, `role`, `desc`, `datetime`) VALUES
 	(133, 'admin', 'ADMIN', 'Login', '09/Feb/2019 23:02:89'),
 	(134, 'admin', 'ADMIN', 'Edit user: buday', '09/Feb/2019 23:02:09'),
 	(135, 'admin', 'ADMIN', 'Edit user: buday', '09/Feb/2019 23:02:88'),
-	(136, 'admin', 'ADMIN', 'Edit user: arrum', '09/Feb/2019 23:02:08');
+	(136, 'admin', 'ADMIN', 'Edit user: arrum', '09/Feb/2019 23:02:08'),
+	(137, 'admin', 'ADMIN', 'Login', '11/Feb/2019 05:02:75');
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 
 -- Dumping structure for table purwadhikastore.products
@@ -103,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.products: ~6 rows (approximately)
+-- Dumping data for table purwadhikastore.products: ~9 rows (approximately)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `idCategory`, `idLocation`, `item`, `price`, `img`, `startDate`, `endDate`, `startTime`, `endTime`, `desc`, `days`, `creator`, `createdBy`) VALUES
@@ -134,13 +135,13 @@ CREATE TABLE IF NOT EXISTS `trx` (
   UNIQUE KEY `invoice` (`invoice`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.trx: ~2 rows (approximately)
+-- Dumping data for table purwadhikastore.trx: ~3 rows (approximately)
 DELETE FROM `trx`;
 /*!40000 ALTER TABLE `trx` DISABLE KEYS */;
 INSERT INTO `trx` (`id`, `invoice`, `username`, `totalPrice`, `totalQty`, `bankName`, `accNumber`, `receipt`, `trxDateTime`, `status`) VALUES
 	(28, 'INV/admin/2019/1/8/64433', 'admin', 1000000, 2, 'BCA', '4731175599', '/img/receipts/TRX1549583073331.jpg', '08/02/2019 06:02:31', 'Unconfirmed'),
-	(29, 'INV/member/2019/1/8/65812', 'member', 1650000, 3, 'MANDIRI', '164000017790', '/img/receipts/TRX1549583892657.png', '08/02/2019 06:42:31', 'Unconfirmed'),
-	(33, 'INV/member/2019/1/9/221839', 'member', 2725000, 3, 'CIMB NIAGA', ' 504-010-2789', '/img/receipts/TRX1549725519414.jpg', '09/Feb/2019 22:02:39', 'Unconfirmed');
+	(29, 'INV/member/2019/1/8/65812', 'member', 1650000, 3, 'MANDIRI', '164000017790', '/img/receipts/TRX1549583892657.png', '08/02/2019 06:42:31', 'Confirmed'),
+	(33, 'INV/member/2019/1/9/221839', 'member', 2725000, 3, 'CIMB NIAGA', '504-010-2789', '/img/receipts/TRX1549725519414.jpg', '09/Feb/2019 22:02:39', 'Confirmed');
 /*!40000 ALTER TABLE `trx` ENABLE KEYS */;
 
 -- Dumping structure for table purwadhikastore.trxdetails
@@ -149,20 +150,21 @@ CREATE TABLE IF NOT EXISTS `trxdetails` (
   `idTrx` int(11) DEFAULT '0',
   `idProduct` int(11) DEFAULT '0',
   `qty` int(11) DEFAULT '0',
+  `barcode` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.trxdetails: ~4 rows (approximately)
+-- Dumping data for table purwadhikastore.trxdetails: ~7 rows (approximately)
 DELETE FROM `trxdetails`;
 /*!40000 ALTER TABLE `trxdetails` DISABLE KEYS */;
-INSERT INTO `trxdetails` (`id`, `idTrx`, `idProduct`, `qty`) VALUES
-	(10, 28, 14, 2),
-	(11, 29, 14, 1),
-	(12, 29, 13, 1),
-	(13, 29, 11, 1),
-	(15, 33, 18, 1),
-	(16, 33, 17, 1),
-	(17, 33, 16, 1);
+INSERT INTO `trxdetails` (`id`, `idTrx`, `idProduct`, `qty`, `barcode`) VALUES
+	(10, 28, 14, 2, 0),
+	(11, 29, 14, 1, 846940),
+	(12, 29, 13, 1, 846940),
+	(13, 29, 11, 1, 846940),
+	(15, 33, 18, 1, 325865),
+	(16, 33, 17, 1, 325865),
+	(17, 33, 16, 1, 325865);
 /*!40000 ALTER TABLE `trxdetails` ENABLE KEYS */;
 
 -- Dumping structure for table purwadhikastore.users
@@ -197,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.wishlist: ~4 rows (approximately)
+-- Dumping data for table purwadhikastore.wishlist: ~6 rows (approximately)
 DELETE FROM `wishlist`;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
 INSERT INTO `wishlist` (`id`, `idProduct`, `idCategory`, `username`) VALUES

@@ -11,4 +11,6 @@ router.post('/addtrxdetail', trxDetailsController.addTrxDetail);
 
 router.get('/bestseller', trxDetailsController.bestSeller);
 
+router.put('/barcode/:id', trxDetailsController.barcode);
+
 module.exports = router;

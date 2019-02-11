@@ -9,4 +9,6 @@ router.post('/gettrx', trxController.getTrx);
 
 router.post('/addtrx', trxController.addTrx);
 
+router.put('/statusupdate/:id', trxController.statusUpdate);
+
 module.exports = router;
