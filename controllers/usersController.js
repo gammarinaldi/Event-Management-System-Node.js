@@ -3,7 +3,7 @@ const Crypto = require('crypto');
 
 module.exports = {
     getListUsers: (req,res) => {
-        var sql = 'SELECT * FROM users;';
+        var sql = `SELECT * FROM users;`;
         conn.query(sql, (err, results) => {
             if(err) {
                 return res.status(500).json({ 
@@ -12,6 +12,7 @@ module.exports = {
                 });
             }
             res.send(results);
+            console.log(results[0].username)
         })   
     },
 

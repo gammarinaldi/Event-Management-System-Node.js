@@ -47,32 +47,47 @@ module.exports = {
                     fullname,
                     email,
                     phone,
-                    role: 'MEMBER'
+                    role: 'MEMBER',
+                    status: 'Unverified'
                  }
                 sql = `INSERT INTO users SET ?`;
-                conn.query(sql, dataUser, (err1,result1) => {
-                    if(err1) { 
+                conn.query(sql, dataUser, (err,results) => {
+                    if(err) { 
                         res.send({ status: 'error', message: 'Register insert query failed.' }); //res.send masuknya ke then axios
                         res.end();
                     }
-                    res.send({ id, username, fullname, email, phone });
 
-                    var verificationLink = `http://localhost:3000/verify?username=${username}&password=${hashPassword}`;
-                    var mailOptions = {
-                        from: 'no-reply <gammarinaldi@yahoo.com>',
-                        to: email,
-                        subject: 'Purwadhika Store Email Verification',
-                        html: `Please click this link to verifiy your account: <a href='${verificationLink}'>Click me to verify</a>`
-                    }
-
-                    transporter.sendMail(mailOptions, (err,res1) => {
+                    var sql = `SELECT * FROM users WHERE username = '${username}'`;
+                    conn.query(sql, (err,results) => {
                         if(err) {
-                            res.send({ status: 'Error' });
-                        } else {
-                            res.send({ status: 'Success' });
+                            return res.status(500).json({ 
+                                message: "There's an error on the server. Please contact the administrator.", 
+                                error: err.message 
+                            });
                         }
-                    });
+                        res.send(results[0].status);
 
+                        //Send account verification email
+                        var verificationLink = `http://localhost:3000/verified?username=${username}&password=${hashPassword}`;
+                        var mailOptions = {
+                            from: 'no-reply <gammarinaldi@yahoo.com>',
+                            to: email,
+                            subject: `Account Verification`,
+                            html: 
+                            `
+                            Dear ${fullname},<br/><br/>
+                            Please click link follow to verifiy your account: <a href='${verificationLink}'>Click me</a>`
+                        }
+
+                        transporter.sendMail(mailOptions, (err,res) => {
+                            if(err) {
+                                res.send({ status: 'Error' });
+                            } else {
+                                res.send({ status: 'Success' });
+                            }
+                        });
+
+                    })
                 });
             }
         });  
@@ -82,17 +97,31 @@ module.exports = {
         var { username, password } = req.body;
         var sql = `SELECT * FROM users WHERE username='${username}' AND password='${password}'`;
         conn.query(sql, (err,results) => {
-            if(err) throw err;
+            if(err) {
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
+            }
+
             if(results.length > 0) {
                 sql = `UPDATE users SET status='Verified' WHERE id=${results[0].id}`;
-                conn.query(sql, (err1,results1) => {
-                    if(err1) throw err1;
+                conn.query(sql, (err,results) => {
+                    if(err) {
+                        return res.status(500).json({ 
+                            message: "There's an error on the server. Please contact the administrator.", 
+                            error: err.message 
+                        });
+                    }
                     //const token = createJWTToken({ id: results[0].id });
                     res.send({ 
-                        username, 
+                        id: results[0].id,
+                        username: results[0].username, 
+                        fullname: results[0].fullname,
+                        phone: results[0].phone,
                         email: results[0].email,
                         role: results[0].role,
-                        status: 'Verified',
+                        status: results[0].status
                         //token
                     });
                 });
