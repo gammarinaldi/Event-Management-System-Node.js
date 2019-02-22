@@ -6,7 +6,7 @@ module.exports = {
     login: (req,res) => {
         var { username, password } = req.body;
         var hashPassword = Crypto.createHmac("sha256","password").update(password).digest("hex");
-        var sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${hashPassword}'`;
+        var sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${hashPassword}' AND status = 'Verified'`;
         conn.query(sql, (err, results) => {
             if(err) { 
                 res.send({ status: 'error', message: 'Login query failed.' }); //res.send masuknya ke then axios
@@ -105,7 +105,7 @@ module.exports = {
             }
 
             if(results.length > 0) {
-                sql = `UPDATE users SET status='Verified' WHERE id=${results[0].id}`;
+                sql = `UPDATE users SET status='Verified' WHERE id='${results[0].id}'`;
                 conn.query(sql, (err,results) => {
                     if(err) {
                         return res.status(500).json({ 
@@ -113,9 +113,10 @@ module.exports = {
                             error: err.message 
                         });
                     }
+
                     //const token = createJWTToken({ id: results[0].id });
                     res.send({ 
-                        id: results[0].id,
+                        id: results[0].id, 
                         username: results[0].username, 
                         fullname: results[0].fullname,
                         phone: results[0].phone,
@@ -124,6 +125,7 @@ module.exports = {
                         status: results[0].status
                         //token
                     });
+                    
                 });
             } else {
                 throw 'User does not exist.';

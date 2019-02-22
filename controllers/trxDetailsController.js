@@ -1,8 +1,5 @@
 const conn = require('../database');
 const transporter = require('../helpers/nodemailer');
-//const JsBarcode = require('jsbarcode');
-const qr = require('qr-image');
-
 
 module.exports = {
     totalTrx: (req,res) => {
@@ -137,7 +134,8 @@ module.exports = {
     },
 
     barcode: (req,res) => {
-        var sql = `UPDATE trxdetails SET barcode = '${req.body.invoice}' WHERE idTrx = '${req.params.id}'`;
+        var code = req.body.invoice.slice(-5);
+        var sql = `UPDATE trxdetails SET barcode = '${code}' WHERE idTrx = '${req.params.id}'`;
         conn.query(sql, (err, results) => {
             if(err) {
                 return res.status(500).json({ 
@@ -146,30 +144,49 @@ module.exports = {
                 });
             }
             res.send(results);
-            
-            // var code = qr.image(req.body.invoice, { type: 'png' });
-            // res.setHeader('Content-type', 'image/png');  //sent qr image to client side
-            // code.pipe(res);
 
-            //Send confirmation email
-            var mailOptions = {
-                from: 'no-reply <gammarinaldi@yahoo.com>',
-                to: req.body.email,
-                subject: 'Yeay, your purchase has been confirmed!',
-                html:  `Dear ${req.body.fullname},
-                        <br/><br/>
-                        Your purchase with invoice: ${req.body.invoice} has been confirmed.
-                        <br/><br/><br/>
-                        Thank You.`
-            }
-
-            transporter.sendMail(mailOptions, (err,res1) => {
+            var sql = ` SELECT 
+                        products.startDate AS startDate,
+                        products.endDate AS endDate,
+                        products.startTime AS startTime,
+                        products.endTime AS endTime,
+                        products.item AS item
+                        FROM products
+                        JOIN category ON category.id = products.idCategory
+                        JOIN trxdetails ON trxdetails.idProduct = products.id
+                        JOIN trx ON trx.id = trxdetails.idTrx
+                        JOIN location ON location.id = products.idLocation
+                        WHERE trxdetails.idTrx = '${req.params.id}'; `;
+            conn.query(sql, (err,res) => {
                 if(err) {
-                    res.send({ status: 'Error' });
-                } else {
-                    res.send({ status: 'Success' });
+                    return res.status(500).json({ 
+                        message: "There's an error on the server. Please contact the administrator.", 
+                        error: err.message 
+                    });
                 }
-            });
+                //Send confirmation email
+                var mailOptions = {
+                    from: 'no-reply <gammarinaldi@yahoo.com>',
+                    to: req.body.email,
+                    subject: 'EMS - Purchase Confirmation',
+                    html:  `Dear Member,
+                            <br/><br/>
+                            Your purchase with invoice: <strong>${req.body.invoice}</strong> has been confirmed.
+                            <br/><br/>
+                            Check-In Code: <strong>${code}</strong><br/>
+                            You can get the Barcode of Check-In Code in the History menu. 
+                            <br/><br/><br/>
+                            Thank You.`
+                }
+
+                transporter.sendMail(mailOptions, (err,res) => {
+                    if(err) {
+                        res.send({ status: 'Error' });
+                    } else {
+                        res.send({ status: 'Success' });
+                    }
+                });
+            })
         });
         
     }
