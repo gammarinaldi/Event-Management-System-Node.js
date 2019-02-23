@@ -33,8 +33,7 @@ module.exports = {
     addCart: (req,res) => {
         try {
             var data = req.body;
-
-            var sql = `SELECT * FROM cart WHERE idProduct = '${data.idProduct}'`;
+            var sql = `SELECT * FROM cart WHERE idProduct = '${data.idProduct}' AND username='${data.username}'`;
             conn.query(sql, (err,results) => {
                 if(err) {
                     return res.status(500).json({ 
@@ -42,9 +41,10 @@ module.exports = {
                         error: err.message 
                     });
                 }
+
                 if(results.length > 0) {
                     var qty = results[0].qty + data.qty;
-                    var sql = `UPDATE cart SET qty = '${qty}' WHERE idProduct = '${data.idProduct}'`
+                    var sql = `UPDATE cart SET qty = '${qty}' WHERE idProduct = '${data.idProduct}' AND username='${data.username}'`;
                     conn.query(sql, (err,results) => {
                         if(err) {
                             return res.status(500).json({ 
@@ -55,7 +55,7 @@ module.exports = {
                         res.send(results);
                     })
                 } else {
-                    var sql = 'INSERT INTO cart SET ?';
+                    var sql = `INSERT INTO cart SET ?`;
                     conn.query(sql, data, (err, results) => {
                         if(err) {
                             return res.status(500).json({ 

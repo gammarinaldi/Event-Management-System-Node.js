@@ -26,13 +26,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.cart: ~4 rows (approximately)
+-- Dumping data for table ems.cart: ~3 rows (approximately)
 DELETE FROM `cart`;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
 INSERT INTO `cart` (`id`, `idProduct`, `idCategory`, `username`, `qty`) VALUES
-	(52, 23, 1, 'admin', 2),
+	(52, 23, 1, 'admin', 1),
 	(53, 18, 1, 'admin', 3),
-	(54, 17, 1, 'admin', 1);
+	(54, 17, 1, 'admin', 1),
+	(55, 23, 7, 'raisa', 1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 -- Dumping structure for table ems.category
@@ -42,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.category: ~2 rows (approximately)
+-- Dumping data for table ems.category: ~4 rows (approximately)
 DELETE FROM `category`;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`id`, `name`) VALUES
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.log: ~42 rows (approximately)
+-- Dumping data for table ems.log: ~44 rows (approximately)
 DELETE FROM `log`;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
 INSERT INTO `log` (`id`, `username`, `role`, `desc`, `datetime`) VALUES
@@ -111,10 +112,6 @@ INSERT INTO `log` (`id`, `username`, `role`, `desc`, `datetime`) VALUES
 	(231, 'admin', 'ADMIN', 'Edit product: [GRATIS] Lomba Puisi 2019', '22/Feb/2019 22:02:70'),
 	(232, 'admin', 'ADMIN', 'Logout', '22/Feb/2019 22:02:72'),
 	(235, 'admin', 'ADMIN', 'Logout', '22/Feb/2019 23:02:37'),
-	(250, 'elma', 'MEMBER', 'Register', '22/Feb/2019 23:02:24'),
-	(251, 'elma', 'MEMBER', 'Register', '22/Feb/2019 23:02:44'),
-	(252, 'citra', 'MEMBER', 'Register', '22/Feb/2019 23:02:13'),
-	(253, 'citra', 'MEMBER', 'Login', '22/Feb/2019 23:02:12'),
 	(254, 'admin', 'ADMIN', 'Login', '23/Feb/2019 07:02:47'),
 	(255, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 07:02:62'),
 	(256, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 07:02:29'),
@@ -125,7 +122,134 @@ INSERT INTO `log` (`id`, `username`, `role`, `desc`, `datetime`) VALUES
 	(261, 'admin', 'ADMIN', 'Edit product: Lomba Puisi 2019', '23/Feb/2019 16:02:61'),
 	(262, 'admin', 'ADMIN', 'Delete user: nigga', '23/Feb/2019 18:02:11'),
 	(263, 'admin', 'ADMIN', 'Add category: Competition', '23/Feb/2019 18:02:53'),
-	(264, 'admin', 'ADMIN', 'Edit product: Lomba Puisi 2019', '23/Feb/2019 19:02:28');
+	(264, 'admin', 'ADMIN', 'Edit product: Lomba Puisi 2019', '23/Feb/2019 19:02:28'),
+	(265, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 19:02:71'),
+	(266, 'admin', 'ADMIN', 'Login', '23/Feb/2019 19:02:26'),
+	(267, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 19:02:93'),
+	(268, 'admin', 'ADMIN', 'Login', '23/Feb/2019 19:02:90'),
+	(269, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 19:02:24'),
+	(272, 'citra', 'MEMBER', 'Register', '23/Feb/2019 19:02:51'),
+	(273, 'citra', 'MEMBER', 'Logout', '23/Feb/2019 19:02:29'),
+	(274, 'admin', 'ADMIN', 'Login', '23/Feb/2019 19:02:14'),
+	(275, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 19:02:50'),
+	(276, 'admin', 'ADMIN', 'Login', '23/Feb/2019 19:02:74'),
+	(277, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 19:02:73'),
+	(278, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 19:02:85'),
+	(279, 'admin', 'ADMIN', 'Login', '23/Feb/2019 19:02:76'),
+	(280, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 19:02:51'),
+	(281, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 19:02:33'),
+	(282, 'member', 'MEMBER', 'Login', '23/Feb/2019 19:02:55'),
+	(283, 'member', 'MEMBER', 'Logout', '23/Feb/2019 19:02:01'),
+	(284, 'admin', 'ADMIN', 'Login', '23/Feb/2019 19:02:20'),
+	(285, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 19:02:83'),
+	(286, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 19:02:52'),
+	(287, 'admin', 'ADMIN', 'Login', '23/Feb/2019 19:02:90'),
+	(288, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:54'),
+	(289, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:22'),
+	(290, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:18'),
+	(291, 'member', 'MEMBER', 'Login', '23/Feb/2019 20:02:88'),
+	(292, 'member', 'MEMBER', 'Logout', '23/Feb/2019 20:02:86'),
+	(293, 'member', 'MEMBER', 'Login', '23/Feb/2019 20:02:88'),
+	(294, 'member', 'MEMBER', 'Logout', '23/Feb/2019 20:02:93'),
+	(295, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:25'),
+	(296, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:05'),
+	(297, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:84'),
+	(298, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:24'),
+	(299, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:95'),
+	(300, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:50'),
+	(301, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:46'),
+	(302, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:46'),
+	(303, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:68'),
+	(304, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:26'),
+	(305, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:69'),
+	(306, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:46'),
+	(307, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:28'),
+	(308, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:68'),
+	(309, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:37'),
+	(310, 'member', 'MEMBER', 'Login', '23/Feb/2019 20:02:73'),
+	(311, 'member', 'MEMBER', 'Logout', '23/Feb/2019 20:02:34'),
+	(312, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:92'),
+	(313, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:50'),
+	(314, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:82'),
+	(315, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:46'),
+	(316, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:38'),
+	(317, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:28'),
+	(318, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:50'),
+	(319, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:76'),
+	(320, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:66'),
+	(321, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:58'),
+	(322, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:21'),
+	(323, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:68'),
+	(324, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:69'),
+	(325, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:38'),
+	(326, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:58'),
+	(327, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:90'),
+	(328, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:11'),
+	(329, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:84'),
+	(330, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:23'),
+	(331, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:07'),
+	(332, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:35'),
+	(333, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:40'),
+	(334, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:52'),
+	(335, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:80'),
+	(336, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:05'),
+	(337, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:39'),
+	(338, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:71'),
+	(339, 'admin', 'ADMIN', 'Edit user: angel', '23/Feb/2019 20:02:22'),
+	(340, 'admin', 'ADMIN', 'Edit user: citra', '23/Feb/2019 20:02:05'),
+	(341, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:92'),
+	(342, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:24'),
+	(343, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:14'),
+	(344, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:42'),
+	(345, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:68'),
+	(346, 'angel', 'MEMBER', 'Register', '23/Feb/2019 20:02:29'),
+	(347, 'angel', 'MEMBER', 'Logout', '23/Feb/2019 20:02:38'),
+	(348, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:07'),
+	(349, 'admin', 'ADMIN', 'Edit user: angel', '23/Feb/2019 20:02:32'),
+	(350, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:84'),
+	(351, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:61'),
+	(352, 'admin', 'ADMIN', 'Edit user: angel', '23/Feb/2019 20:02:18'),
+	(353, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:76'),
+	(354, 'angel', 'ADMIN', 'Login', '23/Feb/2019 20:02:66'),
+	(355, 'angel', 'ADMIN', 'Logout', '23/Feb/2019 20:02:08'),
+	(356, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:22'),
+	(357, 'admin', 'ADMIN', 'Edit user: angel', '23/Feb/2019 20:02:64'),
+	(358, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:08'),
+	(359, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:85'),
+	(360, 'angel', 'PRODUCER', 'Logout', '23/Feb/2019 20:02:91'),
+	(361, 'admin', 'ADMIN', 'Login', '23/Feb/2019 20:02:65'),
+	(362, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 20:02:28'),
+	(363, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 20:02:64'),
+	(364, 'angel', 'PRODUCER', 'Logout', '23/Feb/2019 20:02:82'),
+	(365, 'member', 'MEMBER', 'Login', '23/Feb/2019 20:02:25'),
+	(366, 'member', 'MEMBER', 'Logout', '23/Feb/2019 20:02:80'),
+	(367, 'raisa', 'MEMBER', 'Register', '23/Feb/2019 20:02:11'),
+	(368, 'raisa', 'MEMBER', 'Logout', '23/Feb/2019 21:02:86'),
+	(369, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:55'),
+	(370, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:64'),
+	(371, 'raisa', 'MEMBER', 'Login', '23/Feb/2019 21:02:78'),
+	(372, 'raisa', 'MEMBER', 'Logout', '23/Feb/2019 21:02:35'),
+	(373, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:28'),
+	(374, 'admin', 'ADMIN', 'Edit user: member', '23/Feb/2019 21:02:53'),
+	(375, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:00'),
+	(376, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:35'),
+	(377, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:73'),
+	(378, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:59'),
+	(379, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:82'),
+	(380, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:91'),
+	(381, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:00'),
+	(382, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:19'),
+	(383, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:57'),
+	(384, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:15'),
+	(385, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:53'),
+	(386, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:61'),
+	(387, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:75'),
+	(388, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:73'),
+	(389, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:95'),
+	(390, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:16'),
+	(391, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:82'),
+	(392, 'admin', 'ADMIN', 'Login', '23/Feb/2019 21:02:07'),
+	(393, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 21:02:45');
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 
 -- Dumping structure for table ems.products
@@ -147,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.products: ~9 rows (approximately)
+-- Dumping data for table ems.products: ~10 rows (approximately)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `idCategory`, `idLocation`, `item`, `price`, `img`, `startDate`, `endDate`, `startTime`, `endTime`, `desc`, `days`, `creator`, `createdBy`) VALUES
@@ -179,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `trx` (
   UNIQUE KEY `invoice` (`invoice`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.trx: ~2 rows (approximately)
+-- Dumping data for table ems.trx: ~4 rows (approximately)
 DELETE FROM `trx`;
 /*!40000 ALTER TABLE `trx` DISABLE KEYS */;
 INSERT INTO `trx` (`id`, `invoice`, `username`, `totalPrice`, `totalQty`, `bankName`, `accNumber`, `receipt`, `trxDateTime`, `status`) VALUES
@@ -199,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `trxdetails` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.trxdetails: ~7 rows (approximately)
+-- Dumping data for table ems.trxdetails: ~9 rows (approximately)
 DELETE FROM `trxdetails`;
 /*!40000 ALTER TABLE `trxdetails` DISABLE KEYS */;
 INSERT INTO `trxdetails` (`id`, `idTrx`, `idProduct`, `qty`, `barcode`) VALUES
@@ -228,15 +352,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.users: ~4 rows (approximately)
+-- Dumping data for table ems.users: ~5 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `email`, `phone`, `role`, `status`) VALUES
 	(7, 'admin', '089417bd9abf11f94d96638f0d4eacb338d8568c09bb45a45461c46850e41bcd', 'Admin', 'gammarinaldi@yahoo.com', '081991090777', 'ADMIN', 'Verified'),
-	(19, 'member', '3d49624cdde771b00e23a3d0754c5e650e34bccc1586dfbced1700a9ae8d4b5b', 'This is Member', 'member@gmail.com', '081991090777', 'MEMBER', 'Verified'),
-	(20, 'angel', '56202ac1a1be7de35f98bfa9835b3a51db18cc8fa62e425f33621fb9f13f196f', 'Angel', 'angel@gmail.com', '081991090777', 'PRODUCER', 'Verified'),
-	(40, 'elma', '5c5a5361d3506a4f18d4c47a73da241668d41e3233626e8aafa3fdb2e4a50cea', 'Elma Ulya Nurdiyanti', 'gammarinaldi@gmail.com', '03818440884', 'MEMBER', 'Verified'),
-	(41, 'citra', '5c5a5361d3506a4f18d4c47a73da241668d41e3233626e8aafa3fdb2e4a50cea', 'Citra Nabila Melani', 'gammarinaldi@gmail.com', '08226313614', 'MEMBER', 'Verified');
+	(19, 'member', '3d49624cdde771b00e23a3d0754c5e650e34bccc1586dfbced1700a9ae8d4b5b', 'First Member', 'member@gmail.com', '081991090777', 'MEMBER', 'Verified'),
+	(45, 'angel', '56202ac1a1be7de35f98bfa9835b3a51db18cc8fa62e425f33621fb9f13f196f', 'Angel', 'gammarinaldi@gmail.com', '081991090777', 'PRODUCER', 'Verified'),
+	(46, 'raisa', '5c5a5361d3506a4f18d4c47a73da241668d41e3233626e8aafa3fdb2e4a50cea', 'Raisa Anggraini', 'gammarinaldi@gmail.com', '02103901874', 'MEMBER', 'Verified');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table ems.wishlist
@@ -248,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table ems.wishlist: ~8 rows (approximately)
+-- Dumping data for table ems.wishlist: ~10 rows (approximately)
 DELETE FROM `wishlist`;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
 INSERT INTO `wishlist` (`id`, `idProduct`, `idCategory`, `username`) VALUES
@@ -261,7 +384,7 @@ INSERT INTO `wishlist` (`id`, `idProduct`, `idCategory`, `username`) VALUES
 	(34, 17, 1, 'angel'),
 	(35, 12, 6, 'member'),
 	(38, 23, 1, 'admin'),
-	(39, 23, 1, 'citra');
+	(41, 23, 7, 'raisa');
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

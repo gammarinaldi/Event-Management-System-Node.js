@@ -61,11 +61,9 @@ module.exports = {
     
             if(results.length > 0) {
                 try {
-                    var { username, password, fullname, email, phone, role } = req.body;
-                    var hashPassword = Crypto.createHmac("sha256","password").update(password).digest("hex");
+                    var { username, fullname, email, phone, role } = req.body;
                     var dataUser = { 
                         username,
-                        password: hashPassword,
                         fullname,
                         email,
                         phone,
