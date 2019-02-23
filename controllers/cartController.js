@@ -17,22 +17,55 @@ module.exports = {
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
-            console.log(results)
         });   
+    },
+
+    cartCount: (req,res) => {
+        var sql = `SELECT SUM(qty) AS totalQty FROM cart WHERE username='${req.body.username}';`;
+        conn.query(sql, (err, results) => {
+            if(err) throw err;
+            console.log(sql);
+            console.log(results[0].totalQty)
+            res.send(results[0]);
+        })
     },
 
     addCart: (req,res) => {
         try {
             var data = req.body;
-            var sql = 'INSERT INTO cart SET ?';
-            conn.query(sql, data, (err, results) => {
+
+            var sql = `SELECT * FROM cart WHERE idProduct = '${data.idProduct}'`;
+            conn.query(sql, (err,results) => {
                 if(err) {
                     return res.status(500).json({ 
                         message: "There's an error on the server. Please contact the administrator.", 
                         error: err.message 
                     });
                 }
-                res.send(results); 
+                if(results.length > 0) {
+                    var qty = results[0].qty + data.qty;
+                    var sql = `UPDATE cart SET qty = '${qty}' WHERE idProduct = '${data.idProduct}'`
+                    conn.query(sql, (err,results) => {
+                        if(err) {
+                            return res.status(500).json({ 
+                                message: "There's an error on the server. Please contact the administrator.", 
+                                error: err.message 
+                            });
+                        }
+                        res.send(results);
+                    })
+                } else {
+                    var sql = 'INSERT INTO cart SET ?';
+                    conn.query(sql, data, (err, results) => {
+                        if(err) {
+                            return res.status(500).json({ 
+                                message: "There's an error on the server. Please contact the administrator.", 
+                                error: err.message 
+                            });
+                        }
+                        res.send(results); 
+                    })
+                }
             })  
         } catch(err) {
             return res.status(500).json({ 

@@ -13,4 +13,6 @@ router.delete('/deletecart/:id', cartController.deleteCart);
 
 router.get('/leftincart', cartController.leftInCart);
 
+router.post('/cartcount', cartController.cartCount);
+
 module.exports = router;

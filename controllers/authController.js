@@ -72,7 +72,7 @@ module.exports = {
                         var mailOptions = {
                             from: 'no-reply <gammarinaldi@yahoo.com>',
                             to: email,
-                            subject: `Account Verification`,
+                            subject: `EMS - Account Verification`,
                             html: 
                             `
                             Dear ${fullname},<br/><br/>
@@ -104,8 +104,10 @@ module.exports = {
                 });
             }
 
+            var id = results[0].id;
+
             if(results.length > 0) {
-                sql = `UPDATE users SET status='Verified' WHERE id='${results[0].id}'`;
+                sql = `UPDATE users SET status='Verified' WHERE id='${id}'`;
                 conn.query(sql, (err,results) => {
                     if(err) {
                         return res.status(500).json({ 
@@ -113,19 +115,17 @@ module.exports = {
                             error: err.message 
                         });
                     }
-
-                    //const token = createJWTToken({ id: results[0].id });
-                    res.send({ 
-                        id: results[0].id, 
-                        username: results[0].username, 
-                        fullname: results[0].fullname,
-                        phone: results[0].phone,
-                        email: results[0].email,
-                        role: results[0].role,
-                        status: results[0].status
-                        //token
-                    });
-                    
+                    sql = `SELECT * FROM users WHERE id='${id}'`;
+                    conn.query(sql, (err,results) => {
+                        if(err) {
+                            return res.status(500).json({ 
+                                message: "There's an error on the server. Please contact the administrator.", 
+                                error: err.message 
+                            });
+                        }
+                        console.log(results);
+                        res.send(results);
+                    })
                 });
             } else {
                 throw 'User does not exist.';

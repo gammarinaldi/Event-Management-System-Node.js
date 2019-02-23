@@ -12,11 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dumping database structure for purwadhikastore
-CREATE DATABASE IF NOT EXISTS `purwadhikastore` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `purwadhikastore`;
+-- Dumping database structure for ems
+CREATE DATABASE IF NOT EXISTS `ems` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+USE `ems`;
 
--- Dumping structure for table purwadhikastore.cart
+-- Dumping structure for table ems.cart
 CREATE TABLE IF NOT EXISTS `cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idProduct` int(11) DEFAULT '0',
@@ -24,30 +24,35 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `username` varchar(50) DEFAULT NULL,
   `qty` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.cart: ~0 rows (approximately)
+-- Dumping data for table ems.cart: ~4 rows (approximately)
 DELETE FROM `cart`;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` (`id`, `idProduct`, `idCategory`, `username`, `qty`) VALUES
+	(52, 23, 1, 'admin', 2),
+	(53, 18, 1, 'admin', 3),
+	(54, 17, 1, 'admin', 1);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.category
+-- Dumping structure for table ems.category
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.category: ~3 rows (approximately)
+-- Dumping data for table ems.category: ~2 rows (approximately)
 DELETE FROM `category`;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`id`, `name`) VALUES
 	(1, 'Event'),
 	(2, 'Workshop'),
-	(6, 'Bootcamp');
+	(6, 'Bootcamp'),
+	(7, 'Competition');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.location
+-- Dumping structure for table ems.location
 CREATE TABLE IF NOT EXISTS `location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `city` varchar(50) DEFAULT NULL,
@@ -55,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.location: ~2 rows (approximately)
+-- Dumping data for table ems.location: ~2 rows (approximately)
 DELETE FROM `location`;
 /*!40000 ALTER TABLE `location` DISABLE KEYS */;
 INSERT INTO `location` (`id`, `city`, `address`) VALUES
@@ -63,7 +68,7 @@ INSERT INTO `location` (`id`, `city`, `address`) VALUES
 	(2, 'Jakarta', 'Sinarmas MSIG Tower 40th Floor Sudirman - Jakarta Selatan');
 /*!40000 ALTER TABLE `location` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.log
+-- Dumping structure for table ems.log
 CREATE TABLE IF NOT EXISTS `log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
@@ -71,21 +76,59 @@ CREATE TABLE IF NOT EXISTS `log` (
   `desc` varchar(300) DEFAULT NULL,
   `datetime` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.log: ~6 rows (approximately)
+-- Dumping data for table ems.log: ~42 rows (approximately)
 DELETE FROM `log`;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
 INSERT INTO `log` (`id`, `username`, `role`, `desc`, `datetime`) VALUES
-	(132, 'admin', 'ADMIN', 'Logout', '09/Feb/2019 23:02:14'),
-	(133, 'admin', 'ADMIN', 'Login', '09/Feb/2019 23:02:89'),
-	(134, 'admin', 'ADMIN', 'Edit user: buday', '09/Feb/2019 23:02:09'),
-	(135, 'admin', 'ADMIN', 'Edit user: buday', '09/Feb/2019 23:02:88'),
-	(136, 'admin', 'ADMIN', 'Edit user: arrum', '09/Feb/2019 23:02:08'),
-	(137, 'admin', 'ADMIN', 'Login', '11/Feb/2019 05:02:75');
+	(203, 'admin', 'ADMIN', 'Login', '21/Feb/2019 00:02:47'),
+	(204, 'admin', 'ADMIN', 'Logout', '21/Feb/2019 00:02:22'),
+	(205, 'admin', 'ADMIN', 'Logout', '21/Feb/2019 00:02:22'),
+	(206, 'member', 'MEMBER', 'Login', '21/Feb/2019 01:02:09'),
+	(207, 'member', 'MEMBER', 'Logout', '21/Feb/2019 01:02:95'),
+	(208, 'member', 'MEMBER', 'Login', '21/Feb/2019 01:02:09'),
+	(209, 'admin', 'ADMIN', 'Login', '22/Feb/2019 10:02:80'),
+	(210, 'admin', 'ADMIN', 'Add product: Test', '22/Feb/2019 18:02:42'),
+	(211, 'admin', 'ADMIN', 'Edit product: Test', '22/Feb/2019 18:02:04'),
+	(212, 'admin', 'ADMIN', 'Add product: Test', '22/Feb/2019 18:02:59'),
+	(213, 'admin', 'ADMIN', 'Delete product: Test', '22/Feb/2019 18:02:11'),
+	(214, 'admin', 'ADMIN', 'Add product: Test', '22/Feb/2019 18:02:66'),
+	(215, 'admin', 'ADMIN', 'Delete product: Test', '22/Feb/2019 18:02:39'),
+	(216, 'admin', 'ADMIN', 'Add product: Test', '22/Feb/2019 18:02:93'),
+	(217, 'admin', 'ADMIN', 'Logout', '22/Feb/2019 18:02:55'),
+	(219, 'member', 'MEMBER', 'Login', '22/Feb/2019 18:02:50'),
+	(220, 'member', 'MEMBER', 'Logout', '22/Feb/2019 18:02:61'),
+	(221, 'member', 'MEMBER', 'Login', '22/Feb/2019 19:02:34'),
+	(222, 'member', 'MEMBER', 'Logout', '22/Feb/2019 19:02:30'),
+	(223, 'member', 'MEMBER', 'Login', '22/Feb/2019 19:02:52'),
+	(224, 'member', 'MEMBER', 'Logout', '22/Feb/2019 19:02:65'),
+	(226, 'angel', 'PRODUCER', 'Login', '22/Feb/2019 19:02:98'),
+	(227, 'angel', 'PRODUCER', 'Logout', '22/Feb/2019 19:02:96'),
+	(228, 'admin', 'ADMIN', 'Login', '22/Feb/2019 19:02:96'),
+	(229, 'admin', 'ADMIN', 'Purchase Confirmation', '22/Feb/2019 19:02:94'),
+	(230, 'admin', 'ADMIN', 'Add product: Lomba Puisi 2019', '22/Feb/2019 22:02:69'),
+	(231, 'admin', 'ADMIN', 'Edit product: [GRATIS] Lomba Puisi 2019', '22/Feb/2019 22:02:70'),
+	(232, 'admin', 'ADMIN', 'Logout', '22/Feb/2019 22:02:72'),
+	(235, 'admin', 'ADMIN', 'Logout', '22/Feb/2019 23:02:37'),
+	(250, 'elma', 'MEMBER', 'Register', '22/Feb/2019 23:02:24'),
+	(251, 'elma', 'MEMBER', 'Register', '22/Feb/2019 23:02:44'),
+	(252, 'citra', 'MEMBER', 'Register', '22/Feb/2019 23:02:13'),
+	(253, 'citra', 'MEMBER', 'Login', '22/Feb/2019 23:02:12'),
+	(254, 'admin', 'ADMIN', 'Login', '23/Feb/2019 07:02:47'),
+	(255, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 07:02:62'),
+	(256, 'angel', 'PRODUCER', 'Login', '23/Feb/2019 07:02:29'),
+	(257, 'angel', 'PRODUCER', 'Logout', '23/Feb/2019 07:02:70'),
+	(258, 'admin', 'ADMIN', 'Login', '23/Feb/2019 07:02:48'),
+	(259, 'admin', 'ADMIN', 'Logout', '23/Feb/2019 10:02:82'),
+	(260, 'admin', 'ADMIN', 'Login', '23/Feb/2019 10:02:48'),
+	(261, 'admin', 'ADMIN', 'Edit product: Lomba Puisi 2019', '23/Feb/2019 16:02:61'),
+	(262, 'admin', 'ADMIN', 'Delete user: nigga', '23/Feb/2019 18:02:11'),
+	(263, 'admin', 'ADMIN', 'Add category: Competition', '23/Feb/2019 18:02:53'),
+	(264, 'admin', 'ADMIN', 'Edit product: Lomba Puisi 2019', '23/Feb/2019 19:02:28');
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.products
+-- Dumping structure for table ems.products
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idCategory` int(11) DEFAULT '0',
@@ -98,13 +141,13 @@ CREATE TABLE IF NOT EXISTS `products` (
   `startTime` varchar(50) DEFAULT NULL,
   `endTime` varchar(50) DEFAULT NULL,
   `desc` text,
-  `days` varchar(50) DEFAULT NULL,
+  `days` varchar(100) DEFAULT NULL,
   `creator` varchar(50) DEFAULT NULL,
   `createdBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.products: ~9 rows (approximately)
+-- Dumping data for table ems.products: ~9 rows (approximately)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `idCategory`, `idLocation`, `item`, `price`, `img`, `startDate`, `endDate`, `startTime`, `endTime`, `desc`, `days`, `creator`, `createdBy`) VALUES
@@ -116,10 +159,11 @@ INSERT INTO `products` (`id`, `idCategory`, `idLocation`, `item`, `price`, `img`
 	(15, 2, 1, 'Introduction to UX (User Experience) Research', 650000, '/img/products/PRD1549712866897.png', '2019-03-03', '2019-03-03', '10:00', '15:00', '<h3><strong>Tentang Workshop</strong></h3>\n<p>Tahukah Anda dibalik kenyamanan dan kemudahan berbelanja di sebuah e-commerce, mencari informasi di sebuah website, atau menggunakan aplikasi mobile ada team User Experience Design yang bekerja keras untuk membuat pengalaman Anda sebagai user menyenangkan? Dan tahukah Anda proses memiliki UX Design yang baik semua dimulai dari proses research terlebih dahulu. UX Researcher yang melakukan pengumpulan informasi untuk mengetahui dan mempelajari sikap, tingkah laku, emosi dan kebutuhan para users (pengguna). Pada workshop ini Anda akan mempelajari peran seorang UX Research, mulai dari memilih metode penelitian yang tepat, cara melakukan riset yang benar secara langsung kepada users Anda, hingga cara menganalisa hasil penelitian (research) tersebut.</p>\n<p>&nbsp;</p>\n<p><strong>Apa saja yang akan dipelajari pada workshop ini?</strong></p>\n<ol>\n<li>Mempelajari peran seorang UX Research (what, why, how, when)</li>\n<li>Mempelajari nilai-nilai yang terkandung didalam UX Research seperti konsep produk konsep desain dan development</li>\n<li>Mengetahui cara memilih metode penelitian yang tepat untuk meneliti user Anda</li>\n<li>Memahami setiap proses dalam UX Research, mulai dari perencanaan hingga cara menganalisa</li>\n<li>Praktek langsung memulai user research untuk aplikasi Anda!</li>\n</ol>', 'Sunday,Monday', 'ADMIN', 'admin'),
 	(16, 2, 2, 'Social Media Advertising Masterclass', 2500000, '/img/products/PRD1549712820784.png', '2019-03-10', '2019-03-11', '10:00', '17:00', '<div id="comp-jqn902ov" class="txtNew" data-packed="false" data-min-height="27">\n<h1 class="font_0"><strong>Tentang Bootcamp</strong></h1>\n</div>\n<div id="comp-jqn90386" class="txtNew" data-packed="false" data-min-height="161">\n<p class="font_8">Iklan berbayar saat ini merupakan salah satu marketing platform yang paling efektif dan terukur. Dengan menggunakan Instagram dan facebook ads, Anda dapat mengetahui dengan pasti budget yang Anda keluarkan setiap harinya serta dapat meraih market yang tepat sasaran.</p>\n<p class="font_8">Namun seringkali banyak digital marketeer yang melakukan berbagai kesalahan dalam pemanfaatan iklan media social yang berbayar (Instagram dan Facebook) hingga menimbulkan kerugian (out of budget tetapi target penjualan belum tercapai).</p>\n<p class="font_8">Pada bootcamp ini, Anda akan mempelajari secara mendalam tentang strategi iklan Media sosial berbayar (berfokus pada Instagram dan Facebook). Mempelajari strategi, penggunaan budget yang efektif, cara memperhitungkan ROI secara cermat agar tidak merugi, hingga menciptakan sebuah content ads yang bernilai, sehingga Anda mendapatkan target market yang tepat</p>\n</div>\n<section id="comp-jqn90398" class="strc1" data-responsive="true">\n<div id="comp-jqn90398inlineContent" class="strc1inlineContent">\n<div id="comp-jqn903a9" class="mc1" data-content-width="980" data-is-mesh="true">\n<div id="comp-jqn903a9container" class="mc1container">\n<div id="comp-jqn903a9inlineContentParent" class="mc1inlineContentParent">\n<div id="comp-jqn903a9inlineContent" class="mc1inlineContent">\n<div id="comp-jqn903a9inlineContent-gridWrapper" data-mesh-internal="true">\n<div id="comp-jqn903a9inlineContent-gridContainer" data-mesh-internal="true">\n<div id="comp-jqn903an" class="txtNew" data-packed="false" data-min-height="17">\n<h1 class="font_0"><strong>Siapa saja yang dapat mengikuti kelas bootcamp ini :</strong></h1>\n</div>\n<div id="comp-jqn903bm" class="txtNew" data-packed="false" data-min-height="17">\n<ol class="color_14 font_8">\n<li>\n<p class="font_8"><span class="color_14">Level intermediate &ndash; advanced</span></p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Memiliki pengalaman di bidang social media advertising</span></p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Memiliki pengalaman di bidang paid advertising</span></p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Memiliki pengalaman di bidang digital agency</span></p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Digital Marketing (Middle level)</span></p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Social Media Manager</span></p>\n</li>\n</ol>\n</div>\n<div id="comp-jqn98rlf" class="txtNew" data-packed="false" data-min-height="17">\n<h1 class="font_0"><strong>Apa saja yang akan dipelajari pada bootcamp ini :</strong></h1>\n</div>\n<div id="comp-jqn98rlc" class="txtNew" data-packed="false" data-min-height="17">\n<p class="font_8"><span class="color_14">UNIT 1 : INSTAGRAM ADVERTISING MASTER CLASS</span></p>\n</div>\n<div id="comp-jqn9ithp" class="txtNew" data-packed="false" data-min-height="17">\n<ul class="font_8">\n<li>\n<p class="font_8">Memahami secara benar siapa pelanggan Anda dan bagaimana menjangkau mereka melalui media sosial platform Instagram</p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Mempelajari cara menghitung metrics dan analytics dari hasil iklan Instagram Anda</span></p>\n</li>\n<li>\n<p class="font_8">Cara menghitung keuntungan yang didapat dari penggunaan iklan Instagram</p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Mempelajari budget iklan di Instagram yang efektif</span></p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Mempelajari cara memperhitungkan ROI secara cermat agar tidak merugi</span></p>\n</li>\n<li>\n<p class="font_8"><span class="color_14">Bagaimana cara mengembangkan dan menyampaikan content yang menarik sehingga dapat mengkonversi followers menjadi buyers dan menjadikan buyers tersebut menjadi loyal customer</span></p>\n</li>\n</ul>\n</div>\n<div id="comp-jqn9ns6n" class="txtNew" data-packed="false" data-min-height="17">\n<p class="font_8"><span class="color_14">UNIT 2 : FACEBOOK ADVERTISING MASTER CLASS</span></p>\n</div>\n<div id="comp-jqn9k200" class="txtNew" data-packed="false" data-min-height="17">\n<ul class="font_8">\n<li>\n<p class="font_8">Anda akan belajar mengenai feature-feature yang diperlukan dalam pembuatan iklan di Facebook seperti tipe Ads, outcome yang ingin didapat dari pemasangan iklan tersebut, dan hal lainnya</p>\n</li>\n<li>\n<p class="font_8">Belajar bagaimana menggunakan Facebook Pixel. (Facebook Pixel adalah sebuah kode yang dapat ditaruh di website Anda untuk retargeting dalam beriklan di Facebook. Dari kode ini Anda akan mengetahui behavior pengunjung website Anda)</p>\n</li>\n<li>\n<p class="font_8">Mengetahui bagaimana menggunakan budget iklan di Facebook yang efektif</p>\n</li>\n<li>\n<p class="font_8">Menciptakan content yang menarik seperti video Ads yang valuable (showering the people with value)</p>\n</li>\n<li>\n<p class="font_8">Dari menciptakan content yang menarik Anda akan dapat melakukan segmentasi target customer (interest dan very interest)</p>\n</li>\n<li>\n<p class="font_8">Study Case &amp; Discussion!</p>\n</li>\n</ul>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</section>', 'Sunday,Monday', 'PRODUCER', 'angel'),
 	(17, 1, 1, 'Mastering Content Marketing', 100000, '/img/products/PRD1549718253802.png', '2019-02-07', '2019-02-07', '19:00', '21:00', '<div id="comp-jr1rxfgo" class="txtNew" data-packed="false" data-min-height="27">\n<h1 class="font_0"><strong>Tentang Event</strong></h1>\n</div>\n<p>Content marketing adalah strategi pemasaran dimana kita merencanakan, membuat, dan mendistribusikan konten yang mampu menarik audiens yang tepat sasaran, kemudian mendorong mereka menjadi customer. Apakah Anda sudah rutin mengisi konten di platform digital Brand Anda namun masih tidak mendapatkan konversi signifikan terhadap penjualan Brand Anda?</p>\n<p>Pada event ini akan membahas bagaimana membangun strategi content marketing yang efektif untuk menaikan penjualan. Anda akan belajar langsung dari para ahli content marketing yang sudah berpengalaman menangani media sosial brand besar.</p>\n<p><strong>Apa saja yang akan dipelajari :</strong></p>\n<ol>\n<li>Mengetahui content marketing fundamental: seperti apa content yang baik untuk customer dan cara mengorganisir content marketing campaign</li>\n<li>Mengetahui bagaimana cara memproduksi content marketing yang efektif untuk sebuah brand</li>\n<li>Mengetahui cara meningkatkan traffic yang relevan kepada content yang sudah didistribusikan</li>\n<li>Mengetahui trend content marketing di 2019</li>\n<li>Mengetahui studi kasus sebuah brand yang sukses dalam content marketing</li>\n<li>Mengetahui cara mengevaluasi content marketing yang meningkatkan sales</li>\n</ol>', 'Thursday', 'PRODUCER', 'angel'),
-	(18, 1, 2, 'Meet Women in Data Science', 125000, '/img/products/PRD1549718369089.png', '2019-02-14', '2019-02-14', '19:00', '21:00', '<h1 class="font_0"><strong>Tentang Event</strong></h1>\n<p>Banyaknya jumlah data yang dihasilkan oleh manusia dan perangkat terus mendorong perkembangan teknologi yang dapat mewadahi kebutuhan untuk mengatur dan memproses informasi yang terus bertambah. Data science atau ilmu data pun semakin marak digunakan di berbagai industri untuk mewadahi kebutuhan tersebut. Kini, data science menjadi tool yang sangat berharga bagi industri untuk mentransformasi data menjadi informasi penting.</p>\n<p>Transformasi digital yang suskes tentunya tidak akan mungkin terjadi tanpa kolaborasi yang baik antara manusia dan mesin. Oleh karena itu, selain faktor-faktor pendorong tadi, Industry 4.0 juga membutuhkan sentuhan manusia yang ahli dalam mengolah dan menangani data.</p>\n<p>Untuk melakukan hal tersebut, industri membutuhkan data scientist. Kini, data scientist memainkan peranan yang sangat penting untuk memahami bagaimana hal bekerja dalam sebuah perusahaan. Pada event ini akan membahas lebih dalam tentang Data Science langsung dari narasumber ahli yang sudah menangani Data perusahaan besar. Narasumber akan membagikan pengalaman dan pengetahuan mereka tentang teknologi apa saja yang digunakan di Data Science, peluang karir untuk programmer Data Science dan bagaimana penerapan Data Science dalam sebuah Startup.</p>\n<p><strong>Apa saja yang akan dipelajari :</strong></p>\n<ol>\n<li>Mengetahui apa itu Data Science</li>\n<li>Mengetahui apa saja teknologi yang ada di dalam Data Science</li>\n<li>Mengetahui asal mula mengapa narasumber terjun di dunia Data Science</li>\n<li>Mengetahui teknologi Data Science apa yang sedang digunakan di tempat bekerja narasumber</li>\n<li>Mengetahui peluang karir Data Scientist</li>\n<li>Mengetahui manfaat dari penerapan Data Science dalam sebuah startup</li>\n<li>Mengetahui saat yang tepat untuk startup menggunakan Data Science</li>\n<li>Mengetahui seberapa penting penerapan Data science dalam startup</li>\n<li>Mengetahui kasus nyata tentang suatu startup yang berhasil dalam bisnis setelah menerapkan Data Science</li>\n</ol>', 'Thursday', 'PRODUCER', 'angel');
+	(18, 1, 2, 'Meet Women in Data Science', 125000, '/img/products/PRD1549718369089.png', '2019-02-14', '2019-02-14', '19:00', '21:00', '<h1 class="font_0"><strong>Tentang Event</strong></h1>\n<p>Banyaknya jumlah data yang dihasilkan oleh manusia dan perangkat terus mendorong perkembangan teknologi yang dapat mewadahi kebutuhan untuk mengatur dan memproses informasi yang terus bertambah. Data science atau ilmu data pun semakin marak digunakan di berbagai industri untuk mewadahi kebutuhan tersebut. Kini, data science menjadi tool yang sangat berharga bagi industri untuk mentransformasi data menjadi informasi penting.</p>\n<p>Transformasi digital yang suskes tentunya tidak akan mungkin terjadi tanpa kolaborasi yang baik antara manusia dan mesin. Oleh karena itu, selain faktor-faktor pendorong tadi, Industry 4.0 juga membutuhkan sentuhan manusia yang ahli dalam mengolah dan menangani data.</p>\n<p>Untuk melakukan hal tersebut, industri membutuhkan data scientist. Kini, data scientist memainkan peranan yang sangat penting untuk memahami bagaimana hal bekerja dalam sebuah perusahaan. Pada event ini akan membahas lebih dalam tentang Data Science langsung dari narasumber ahli yang sudah menangani Data perusahaan besar. Narasumber akan membagikan pengalaman dan pengetahuan mereka tentang teknologi apa saja yang digunakan di Data Science, peluang karir untuk programmer Data Science dan bagaimana penerapan Data Science dalam sebuah Startup.</p>\n<p><strong>Apa saja yang akan dipelajari :</strong></p>\n<ol>\n<li>Mengetahui apa itu Data Science</li>\n<li>Mengetahui apa saja teknologi yang ada di dalam Data Science</li>\n<li>Mengetahui asal mula mengapa narasumber terjun di dunia Data Science</li>\n<li>Mengetahui teknologi Data Science apa yang sedang digunakan di tempat bekerja narasumber</li>\n<li>Mengetahui peluang karir Data Scientist</li>\n<li>Mengetahui manfaat dari penerapan Data Science dalam sebuah startup</li>\n<li>Mengetahui saat yang tepat untuk startup menggunakan Data Science</li>\n<li>Mengetahui seberapa penting penerapan Data science dalam startup</li>\n<li>Mengetahui kasus nyata tentang suatu startup yang berhasil dalam bisnis setelah menerapkan Data Science</li>\n</ol>', 'Thursday', 'PRODUCER', 'angel'),
+	(23, 7, 2, 'Lomba Puisi 2019', 50000, '/img/products/PRD1550850009666.png', '2019-02-15', '2019-07-10', '09:00', '17:00', '<div id="post15812732497145653192"><strong>Syarat dan Ketentuan&nbsp;Lomba Puisi Nasional Nasional 2019</strong></div>\n<div class="googlepublisherads">&nbsp;</div>\n<div id="post25812732497145653192">\n<ul>\n<li>Peserta yang bisa mendaftar dalam lomba ini adalah umum</li>\n<li>Umum yang dimaksud berusia maksimal usia 24 tahun</li>\n<li>Artinya dalam kompetisi ini juga terbuka untuk para mahasiswa aktif yang menempuh pendidikan D3/D4/S1 perguruan tinggi di Indonesia, dibuktikan dengan Kartu Tanda Mahasiswa, selain juga juga pelajar atau siswa Se-Derajat di Indonesia, dibuktikan dengan Kartu Tanda Pelajar.</li>\n<li>Peserta yang bisa mendaftar dalam lomba ini merupakan perseorangan atau individu.</li>\n<li>Peserta boleh mengirimkan lebih dari 1 karya puisi dengan melalui e-mail yang sama.</li>\n<li>Tulisan menggunakan PUEBI (Pedoman Umum Ejaan Bahasa Indonesia) dan tidak mengandung unsur SARA.</li>\n<li>Puisi yang diikutsertakan dalam lomba bersifat orisinil.</li>\n<li>Puisi belum pernah menang dalam lomba manapun, bukan saduran, bukan terjemahan, bukan plagiat dari karya yang telah ada sebelumnya.</li>\n<li>Jika terdapat indikasi pelanggaran pada puisi akan kami diskualifikasi secara langsung dinyatakan gugur serta tidak akan mendapatkan fasilitas apapun dari panitia.</li>\n<li>Indonesia Literacy Event berhak memperbanyak dan mempubilkasikan karya pemenang dengan tetap mencantumkan nama penulis tanpa perlu mendapat izin dari penulis puisi tersebut, serta tidak memberikan kompensasi berupa materi/uang kepada pemilik karya.</li>\n<li>Setiap peserta dalam lomba ini wajib mengisi formulir pendaftaran secara online</li>\n<li>Formulir pendaftaran online tersebut bisa kalian dapatkan&nbsp;<a href="http://bit.ly/DaftarLPN2019" rel="nofollow">disini</a>&nbsp;panduannya juga bisa kalian dapatkan&nbsp;<a href="http://bit.ly/PanduanLombaPuisiNasional2019" rel="nofollow">dimari</a></li>\n<li>Keputusan dewan juri dalam lomba ini tidak bisa dianggu gugat</li>\n<li>Baca juga ya jadwal lomba-lomba lainnya di tahun 2019&nbsp;<a href="https://www.informasilomba.com/2019/01/lomba-2019.html">disini</a></li>\n</ul>\n<div><strong>Timeline&nbsp;Lomba Puisi Nasional Nasional 2019</strong></div>\n<br />\n<div>\n<ul>\n<li>15 Februari &ndash; 15 Maret 2019 : Pendaftaran, pembayaran, pengiriman berkas, posting poster di Instagram dan konfirmasi gelombang I</li>\n<li>15 Maret &ndash; 15 April 2019 : Pendaftaran, pembayaran, posting poster di instagram, pengiriman berkas, dan konfirmasi gelombang II</li>\n<li>15 April &ndash; 15 Mei 2019 : Pendaftaran, pembayaran, posting poster di instagram, pengiriman berkas, dan Konfirmasi Gelombang III</li>\n<li>20 Juni 2019 : Pengumuman 100 finalis lomba puisi nasional.</li>\n<li>21-28 Juni 2019 : Pengiriman video baca puisi 100 finalis ke email panitia lomba.</li>\n<li>30 Juni 2019 - 5 Juli 2019 : Posting 100 video finalis lomba puisi nasional di instagram untuk pemilihan juara favorit.</li>\n<li>10 Juli 2019 : Pengumuman pemenang</li>\n<li>(Tentatif) Juli 2019 : Keberangkatan pemenang, pengiriman hadiah, serta pengiriman e-sertifikat ke peserta.</li>\n<li>Juara 1 : Trip to Malaysia, Thailand, dan Singapura (<em>All Include</em>) + Uang Tunai Rp 1.000.000 + Sertifikat Pemenang</li>\n</ul>\n</div>\n<ul>\n<li>Juara 2 : Uang Tunai Rp 1.000.000 + E-Sertifikat Pemenang</li>\n<li>Juara 3 : Uang Tunai Rp 750.000 + E-Sertifikat Pemenang</li>\n<li>Juara Favorit : Uang Tunai Rp 500.000 + E-Sertifikat juara favorit</li>\n<li>100 Finalis : E-Sertifikat 100 Besar Grandfinalis Lomba Puisi Nasional Indonesia Literacy Event 2019.</li>\n<li>Semua Peserta mendapatkan: E-Sertifikat Nasional, dan E-Calendar Exclusive 2019.</li>\n</ul>\n</div>', 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday', 'ADMIN', 'admin');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.trx
+-- Dumping structure for table ems.trx
 CREATE TABLE IF NOT EXISTS `trx` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice` varchar(100) DEFAULT NULL,
@@ -133,41 +177,44 @@ CREATE TABLE IF NOT EXISTS `trx` (
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `invoice` (`invoice`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.trx: ~3 rows (approximately)
+-- Dumping data for table ems.trx: ~2 rows (approximately)
 DELETE FROM `trx`;
 /*!40000 ALTER TABLE `trx` DISABLE KEYS */;
 INSERT INTO `trx` (`id`, `invoice`, `username`, `totalPrice`, `totalQty`, `bankName`, `accNumber`, `receipt`, `trxDateTime`, `status`) VALUES
-	(28, 'INV/admin/2019/1/8/64433', 'admin', 1000000, 2, 'BCA', '4731175599', '/img/receipts/TRX1549583073331.jpg', '08/02/2019 06:02:31', 'Unconfirmed'),
-	(29, 'INV/member/2019/1/8/65812', 'member', 1650000, 3, 'MANDIRI', '164000017790', '/img/receipts/TRX1549583892657.png', '08/02/2019 06:42:31', 'Confirmed'),
-	(33, 'INV/member/2019/1/9/221839', 'member', 2725000, 3, 'CIMB NIAGA', '504-010-2789', '/img/receipts/TRX1549725519414.jpg', '09/Feb/2019 22:02:39', 'Confirmed');
+	(28, 'INV/admin/2019/1/8/64433', 'admin', 1000000, 2, 'BCA', '4731175599', '/img/receipts/TRX1549583073331.jpg', '08/02/2019 06:02:31', 'Confirmed'),
+	(29, 'INV/member/2019/1/8/65812', 'member', 1650000, 3, 'MANDIRI', '164000017790', '/img/receipts/TRX1549583892657.png', '08/02/2019 06:42:31', 'Unconfirmed'),
+	(33, 'INV/member/2019/1/9/221839', 'member', 2725000, 3, 'CIMB NIAGA', '504-010-2789', '/img/receipts/TRX1549725519414.jpg', '09/Feb/2019 22:02:39', 'Confirmed'),
+	(34, 'INV/admin/2019/1/23/163437', 'admin', 1550000, 4, 'BNI', '123-456-78910', '/img/receipts/TRX1550914477459.jpg', '23/Feb/2019 16:02:44', 'Unconfirmed');
 /*!40000 ALTER TABLE `trx` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.trxdetails
+-- Dumping structure for table ems.trxdetails
 CREATE TABLE IF NOT EXISTS `trxdetails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idTrx` int(11) DEFAULT '0',
   `idProduct` int(11) DEFAULT '0',
   `qty` int(11) DEFAULT '0',
-  `barcode` int(11) DEFAULT '0',
+  `barcode` varchar(100) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.trxdetails: ~7 rows (approximately)
+-- Dumping data for table ems.trxdetails: ~7 rows (approximately)
 DELETE FROM `trxdetails`;
 /*!40000 ALTER TABLE `trxdetails` DISABLE KEYS */;
 INSERT INTO `trxdetails` (`id`, `idTrx`, `idProduct`, `qty`, `barcode`) VALUES
-	(10, 28, 14, 2, 0),
-	(11, 29, 14, 1, 846940),
-	(12, 29, 13, 1, 846940),
-	(13, 29, 11, 1, 846940),
-	(15, 33, 18, 1, 325865),
-	(16, 33, 17, 1, 325865),
-	(17, 33, 16, 1, 325865);
+	(10, 28, 14, 2, '64433'),
+	(11, 29, 14, 1, '0'),
+	(12, 29, 13, 1, '0'),
+	(13, 29, 11, 1, '0'),
+	(15, 33, 18, 1, '21839'),
+	(16, 33, 17, 1, '21839'),
+	(17, 33, 16, 1, '21839'),
+	(18, 34, 18, 2, '0'),
+	(19, 34, 11, 2, '0');
 /*!40000 ALTER TABLE `trxdetails` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.users
+-- Dumping structure for table ems.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -176,39 +223,45 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(50) DEFAULT NULL,
   `phone` varchar(50) DEFAULT NULL,
   `role` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.users: ~4 rows (approximately)
+-- Dumping data for table ems.users: ~4 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `email`, `phone`, `role`) VALUES
-	(7, 'admin', '089417bd9abf11f94d96638f0d4eacb338d8568c09bb45a45461c46850e41bcd', 'Admin', 'gammarinaldi@yahoo.com', '081991090777', 'ADMIN'),
-	(18, 'arrum', 'arrum', 'Arrum', 'arrum@gmail.com', '081991090777', 'MEMBER'),
-	(19, 'member', '3d49624cdde771b00e23a3d0754c5e650e34bccc1586dfbced1700a9ae8d4b5b', 'This is Member', 'member@gmail.com', '081991090777', 'MEMBER'),
-	(20, 'angel', '56202ac1a1be7de35f98bfa9835b3a51db18cc8fa62e425f33621fb9f13f196f', 'Angel', 'angel@gmail.com', '081991090777', 'PRODUCER');
+INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `email`, `phone`, `role`, `status`) VALUES
+	(7, 'admin', '089417bd9abf11f94d96638f0d4eacb338d8568c09bb45a45461c46850e41bcd', 'Admin', 'gammarinaldi@yahoo.com', '081991090777', 'ADMIN', 'Verified'),
+	(19, 'member', '3d49624cdde771b00e23a3d0754c5e650e34bccc1586dfbced1700a9ae8d4b5b', 'This is Member', 'member@gmail.com', '081991090777', 'MEMBER', 'Verified'),
+	(20, 'angel', '56202ac1a1be7de35f98bfa9835b3a51db18cc8fa62e425f33621fb9f13f196f', 'Angel', 'angel@gmail.com', '081991090777', 'PRODUCER', 'Verified'),
+	(40, 'elma', '5c5a5361d3506a4f18d4c47a73da241668d41e3233626e8aafa3fdb2e4a50cea', 'Elma Ulya Nurdiyanti', 'gammarinaldi@gmail.com', '03818440884', 'MEMBER', 'Verified'),
+	(41, 'citra', '5c5a5361d3506a4f18d4c47a73da241668d41e3233626e8aafa3fdb2e4a50cea', 'Citra Nabila Melani', 'gammarinaldi@gmail.com', '08226313614', 'MEMBER', 'Verified');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
--- Dumping structure for table purwadhikastore.wishlist
+-- Dumping structure for table ems.wishlist
 CREATE TABLE IF NOT EXISTS `wishlist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idProduct` int(11) NOT NULL DEFAULT '0',
   `idCategory` int(11) NOT NULL DEFAULT '0',
   `username` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table purwadhikastore.wishlist: ~6 rows (approximately)
+-- Dumping data for table ems.wishlist: ~8 rows (approximately)
 DELETE FROM `wishlist`;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
 INSERT INTO `wishlist` (`id`, `idProduct`, `idCategory`, `username`) VALUES
-	(19, 12, 6, 'admin'),
 	(26, 18, 1, 'member'),
-	(27, 17, 1, 'member'),
 	(28, 16, 2, 'member'),
-	(29, 14, 2, 'admin'),
-	(30, 16, 2, 'admin');
+	(30, 16, 2, 'admin'),
+	(31, 18, 1, 'admin'),
+	(32, 17, 1, 'member'),
+	(33, 18, 1, 'angel'),
+	(34, 17, 1, 'angel'),
+	(35, 12, 6, 'member'),
+	(38, 23, 1, 'admin'),
+	(39, 23, 1, 'citra');
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
