@@ -23,8 +23,7 @@ module.exports = {
                     products.item AS item, 
                     products.price AS price,
                     trxdetails.qty AS qty,
-                    location.city AS city,
-                    location.address AS address
+                    location.city AS city
                     FROM products
                     JOIN category ON category.id = products.idCategory
                     JOIN trxdetails ON trxdetails.idProduct = products.id
@@ -50,8 +49,7 @@ module.exports = {
                     products.item AS item, 
                     products.price AS price,
                     trxdetails.qty AS qty,
-                    location.city AS city,
-                    location.address AS address
+                    location.city AS city
                     FROM products
                     JOIN category ON category.id = products.idCategory
                     JOIN trxdetails ON trxdetails.idProduct = products.id
