@@ -2,7 +2,7 @@ const conn = require('../database');
 
 module.exports = {
     getListLocation: (req,res) => {
-        var sql = 'SELECT * FROM location;';
+        var sql = 'SELECT * FROM location ORDER BY city ASC;';
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);

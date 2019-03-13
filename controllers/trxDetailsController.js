@@ -1,5 +1,5 @@
-const conn = require('../database');
 const transporter = require('../helpers/nodemailer');
+const conn = require('../database');
 
 module.exports = {
     totalTrx: (req,res) => {
@@ -38,6 +38,7 @@ module.exports = {
     },
 
     getTrxDetails: (req,res) => {
+        
         var sql =  `SELECT 
                     trxdetails.id AS idTrxDetails,
                     trxdetails.barcode AS barcode,
@@ -60,6 +61,7 @@ module.exports = {
                     WHERE trxdetails.idTrx = '${req.body.idTrx}';`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
+            console.log(results)
             res.send(results);
         })   
     },
@@ -87,7 +89,9 @@ module.exports = {
 
     bestSeller: (req,res) => {
         try {
-            var sql =  `SELECT products.item AS item
+            var sql =  `SELECT 
+                        products.item AS item,
+                        products.price * trxdetails.qty AS totalPrice
                         FROM products
                         JOIN trxdetails ON trxdetails.idProduct = products.id
                         GROUP BY products.id

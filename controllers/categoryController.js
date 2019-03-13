@@ -2,7 +2,7 @@ const conn = require('../database');
 
 module.exports = {
     getListCategory: (req,res) => {
-        var sql = 'SELECT * FROM category;';
+        var sql = 'SELECT * FROM category ORDER BY name ASC;';
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
