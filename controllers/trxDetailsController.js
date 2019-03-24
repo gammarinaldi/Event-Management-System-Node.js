@@ -13,7 +13,7 @@ module.exports = {
     getListTrxDetails: (req,res) => {
         var sql =  `SELECT 
                     trxdetails.id AS idTrxDetails,
-                    trxdetails.barcode AS barcode,
+                    trxdetails.qrcode AS qrcode,
                     products.id AS idProduct,
                     products.startDate AS startDate,
                     products.endDate AS endDate,
@@ -41,7 +41,7 @@ module.exports = {
         
         var sql =  `SELECT 
                     trxdetails.id AS idTrxDetails,
-                    trxdetails.barcode AS barcode,
+                    trxdetails.qrcode AS qrcode,
                     products.id AS idProduct,
                     products.startDate AS startDate,
                     products.endDate AS endDate,
@@ -137,9 +137,14 @@ module.exports = {
         }
     },
 
-    barcode: (req,res) => {
-        var code = req.body.invoice.slice(-5);
-        var sql = `UPDATE trxdetails SET barcode = '${code}' WHERE idTrx = '${req.params.id}'`;
+    qrcode: (req,res) => {
+        //Get qr code from invoice last 5 numbers
+        //var code = req.body.invoice.slice(-5);
+
+        //Get qr code from random last 6 numbers
+        var code = Math.floor(100000 + Math.random() * 900000);
+
+        var sql = `UPDATE trxdetails SET qrcode = '${code}' WHERE idTrx = '${req.params.id}'`;
         conn.query(sql, (err, results) => {
             if(err) {
                 return res.status(500).json({ 
@@ -178,7 +183,7 @@ module.exports = {
                             Your purchase with invoice: <strong>${req.body.invoice}</strong> has been confirmed.
                             <br/><br/>
                             Check-In Code: <strong>${code}</strong><br/>
-                            You can get the Barcode of Check-In Code in the History menu. 
+                            You can get the QR Code for check-in in the History menu. 
                             <br/><br/><br/>
                             Thank You.`
                 }

@@ -13,12 +13,12 @@ module.exports = {
 
     getProduct: (req,res) => {
         var productId = req.body.id;
-        var creator = req.body.creator;
-        var createdBy = req.body.createdBy;
+        var creatorRole = req.body.creatorRole;
+        var creatorName= req.body.creatorName;
         if(productId) {
             var sql = `SELECT * FROM products WHERE id = '${productId}'`;
         } else {
-            var sql = `SELECT * FROM products WHERE creator = '${creator}' AND createdBy = '${createdBy}'`;
+            var sql = `SELECT * FROM products WHERE creatorRole = '${creatorRole}' AND creatorName = '${creatorName}'`;
         }
         conn.query(sql, (err, results) => {
             if(err) throw err;
@@ -195,5 +195,21 @@ module.exports = {
             }
         }); 
     
-    }
+    },
+
+    getParticipant: (req,res) =>{
+        var sql = `SELECT idProduct, SUM(qty) AS participant, (products.price * SUM(qty)) AS sales
+                    FROM trxdetails
+                    JOIN products ON products.id = trxdetails.idProduct
+                    WHERE qrcode > 0
+                    GROUP BY idProduct;`;
+        conn.query(sql, (err,results) => {
+            if(err) {
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message });
+            }
+            res.send(results);
+        });
+    },
 }

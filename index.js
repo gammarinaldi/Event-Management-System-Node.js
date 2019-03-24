@@ -6,9 +6,9 @@ const PORT = process.env.PORT || 1988;
 
 var app = express({defaultErrorHandler:false}); //Kirim error gak pake throw
 
-app.use(cors());//Supaya API bisa diakses oleh front end
+app.use(cors()); //Supaya API bisa diakses oleh front end
 app.use(bodyParser.urlencoded({extended:false})); //Biar dari front end bisa kirim image
-app.use(bodyParser.json());//Untuk menerima json melalui req.body
+app.use(bodyParser.json()); //Untuk menerima json melalui req.body
 app.use(express.static('public')); //Untuk akses folder public
 
 app.get('/', (req,res) => {

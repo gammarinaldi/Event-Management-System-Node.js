@@ -13,4 +13,6 @@ router.put('/statusupdate/:id', trxController.statusUpdate);
 
 router.get('/totalconfirmed', trxController.totalConfirmed);
 
+router.get('/unconfirmedtrxcounter', trxController.unconfirmedTrxCounter);
+
 module.exports = router;

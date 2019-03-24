@@ -90,6 +90,12 @@ module.exports = {
                     error: err.message 
                 });
             }
+
+            //Insert data into table: participant
+            var data = req.body; //idProduct, qty
+            var sql = `INSERT INTO participant SET ?`;
+
+
             sql = `SELECT id FROM trx WHERE id = '${req.params.id}';`;
             conn.query(sql, (err2,results2) => {
                 if(err2) {
@@ -105,6 +111,19 @@ module.exports = {
 
     totalConfirmed: (req,res) => {
         var sql = `SELECT COUNT(id) AS confirmed FROM trx WHERE status = 'Confirmed';`;
+        conn.query(sql, (err, results) => {
+            if(err){
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message 
+                });
+            }
+            res.send(results);
+        })   
+    },
+
+    unconfirmedTrxCounter: (req,res) => {
+        var sql = `SELECT COUNT(id) AS unconfirmed FROM trx WHERE status = 'Unconfirmed';`;
         conn.query(sql, (err, results) => {
             if(err){
                 return res.status(500).json({ 

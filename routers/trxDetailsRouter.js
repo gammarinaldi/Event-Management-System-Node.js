@@ -13,7 +13,7 @@ router.get('/bestseller', trxDetailsController.bestSeller);
 
 router.get('/worstseller', trxDetailsController.worstSeller);
 
-router.put('/barcode/:id', trxDetailsController.barcode);
+router.put('/qrcode/:id', trxDetailsController.qrcode);
 
 router.get('/totaltrx', trxDetailsController.totalTrx);
 
