@@ -12,7 +12,7 @@ app.use(bodyParser.json()); //Untuk menerima json melalui req.body
 app.use(express.static('public')); //Untuk akses folder public
 
 app.get('/', (req,res) => {
-    res.send('<h3>Selamat Datang di API Purwadhikastore, dibuat menggunakan Node.js dengan database MySQL.</h3>');
+    res.send('<h3>Selamat Datang di backend API, dibuat menggunakan Node.js dengan database MySQL.</h3>');
 });
 
 const {
