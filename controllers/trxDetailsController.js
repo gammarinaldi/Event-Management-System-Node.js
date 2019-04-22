@@ -90,8 +90,7 @@ module.exports = {
     bestSeller: (req,res) => {
         try {
             var sql =  `SELECT 
-                        products.item AS item,
-                        products.price * trxdetails.qty AS totalPrice
+                        products.item AS item
                         FROM products
                         JOIN trxdetails ON trxdetails.idProduct = products.id
                         GROUP BY products.id

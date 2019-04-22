@@ -11,4 +11,6 @@ router.put('/edituser/:id', usersController.editUser);
 
 router.delete('/deleteuser/:id', usersController.deleteUser);
 
+router.post('/getparticipant', usersController.participantList);
+
 module.exports = router;

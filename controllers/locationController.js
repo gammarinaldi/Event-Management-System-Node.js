@@ -11,7 +11,7 @@ module.exports = {
 
     getLocation: (req,res) => {
         if(req.body.city) {
-            var sql = `SELECT id FROM location WHERE city = '${req.body.city}'`;
+            var sql = `SELECT * FROM location WHERE city = '${req.body.city}'`;
             conn.query(sql, (err, results) => {
                 if(err) throw err;
                 res.send(results);

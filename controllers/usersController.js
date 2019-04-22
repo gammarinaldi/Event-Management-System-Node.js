@@ -124,12 +124,47 @@ module.exports = {
                                 message: "There's an error on the server. Please contact the administrator.", 
                                 error: err2.message });
                         }
-    
                         res.send(results2);
                     })
                 })
             }
         })   
     
-    }
+    },
+
+    participantList: (req,res) => {
+        var idProduct = req.body.id;
+        var sql =  `SELECT 
+                        users.id AS id,
+                        trx.username AS username,
+                        users.fullname AS fullname,
+                        users.email AS email,
+                        users.phone AS phone,
+                        products.item AS productName
+                    FROM 
+                        trx
+                    JOIN
+                        trxdetails
+                    ON
+                        trxdetails.idTrx = trx.id
+                    JOIN
+                        products
+                    ON
+                        products.id = trxdetails.idProduct
+                    JOIN
+                        users
+                    ON
+                        users.username = trx.username
+                    WHERE 
+                        products.id = ${idProduct};`;
+        conn.query(sql, (err, results) => {
+            if(err) {
+                return res.status(500).json({ 
+                    message: "There's an error on the server. Please contact the administrator.", 
+                    error: err.message });
+            }
+            res.send(results);
+        })   
+    
+    },
 }
