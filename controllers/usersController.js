@@ -140,7 +140,8 @@ module.exports = {
                         users.fullname AS fullname,
                         users.email AS email,
                         users.phone AS phone,
-                        products.item AS productName
+                        products.item AS productName,
+                        products.id AS productID
                     FROM 
                         trx
                     JOIN
@@ -156,7 +157,7 @@ module.exports = {
                     ON
                         users.username = trx.username
                     WHERE 
-                        products.id = ${idProduct};`;
+                        products.id = ${idProduct} AND trx.status = 'Confirmed';`;
         conn.query(sql, (err, results) => {
             if(err) {
                 return res.status(500).json({ 

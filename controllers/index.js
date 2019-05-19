@@ -8,6 +8,7 @@ const trxDetailsController = require('./trxDetailsController');
 const locationController = require('./locationController');
 const categoryController = require('./categoryController');
 const logController = require('./logController');
+const matchesController = require('./matchesController');
 
 module.exports = {
     authController,
@@ -19,5 +20,6 @@ module.exports = {
     trxDetailsController,
     locationController,
     categoryController,
-    logController
+    logController,
+    matchesController
 }

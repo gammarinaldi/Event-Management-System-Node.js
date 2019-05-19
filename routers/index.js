@@ -8,6 +8,7 @@ const wishlistRouter = require('./wishlistRouter');
 const locationRouter = require('./locationRouter');
 const categoryRouter = require('./categoryRouter');
 const logRouter = require('./logRouter');
+const matchesRouter = require('./matchesRouter');
 
 module.exports = {
     authRouter,
@@ -19,6 +20,7 @@ module.exports = {
     wishlistRouter,
     locationRouter,
     categoryRouter,
-    logRouter
+    logRouter,
+    matchesRouter
 }
 

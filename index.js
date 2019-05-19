@@ -25,7 +25,8 @@ const {
     categoryRouter,
     locationRouter,
     wishlistRouter,
-    logRouter
+    logRouter,
+    matchesRouter
 } = require('./routers');
 
 app.use('/auth', authRouter);
@@ -38,5 +39,6 @@ app.use('/category', categoryRouter);
 app.use('/location', locationRouter);
 app.use('/wishlist', wishlistRouter);
 app.use('/log', logRouter);
+app.use('/matches', matchesRouter)
 
 app.listen(PORT, () => console.log('Node is running, API active at port: ' + PORT));

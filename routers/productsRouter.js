@@ -13,6 +13,6 @@ router.put('/editproduct/:id', productsController.editProduct);
 
 router.delete('/deleteproduct/:id', productsController.deleteProduct);
 
-router.get('/getparticipant', productsController.getParticipant);
+router.post('/getparticipant', productsController.getParticipant);
 
 module.exports = router;

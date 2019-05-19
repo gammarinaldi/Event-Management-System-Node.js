@@ -198,13 +198,18 @@ module.exports = {
     },
 
     getParticipant: (req,res) =>{
-        var sql = `SELECT trxdetails.idProduct AS idProduct, products.item AS item, category.name AS category, location.city AS city, 
+        var sql = ` SELECT 
+                    trxdetails.idProduct AS idProduct, 
+                    products.item AS item, 
+                    products.creatorName AS creatorName, 
+                    category.name AS category, 
+                    location.city AS city, 
                     SUM(qty) AS participant, (products.price * SUM(qty)) AS sales
                     FROM trxdetails
                     JOIN products ON products.id = trxdetails.idProduct
                     JOIN category ON products.idCategory = category.id
                     JOIN location ON products.idLocation = location.id
-                    WHERE qrcode > 0
+                    WHERE qrcode > 0 AND products.creatorName = '${req.body.creatorName}'
                     GROUP BY trxdetails.idProduct;`;
         conn.query(sql, (err,results) => {
             if(err) {
