@@ -7,11 +7,11 @@ module.exports = {
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
-        })   
+        })
     },
 
     getListTrxDetails: (req,res) => {
-        var sql =  `SELECT 
+        var sql =  `SELECT
                     trxdetails.id AS idTrxDetails,
                     trxdetails.qrcode AS qrcode,
                     products.id AS idProduct,
@@ -20,7 +20,7 @@ module.exports = {
                     products.startTime AS startTime,
                     products.endTime AS endTime,
                     category.name AS category,
-                    products.item AS item, 
+                    products.item AS item,
                     products.price AS price,
                     trxdetails.qty AS qty,
                     location.city AS city,
@@ -34,12 +34,12 @@ module.exports = {
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
-        })   
+        })
     },
 
     getTrxDetails: (req,res) => {
-        
-        var sql =  `SELECT 
+
+        var sql =  `SELECT
                     trxdetails.id AS idTrxDetails,
                     trxdetails.qrcode AS qrcode,
                     products.id AS idProduct,
@@ -48,7 +48,7 @@ module.exports = {
                     products.startTime AS startTime,
                     products.endTime AS endTime,
                     category.name AS category,
-                    products.item AS item, 
+                    products.item AS item,
                     products.price AS price,
                     trxdetails.qty AS qty,
                     location.city AS city,
@@ -63,7 +63,7 @@ module.exports = {
             if(err) throw err;
             console.log(results)
             res.send(results);
-        })   
+        })
     },
 
     addTrxDetail: (req,res) => {
@@ -72,24 +72,24 @@ module.exports = {
             var sql = 'INSERT INTO trxdetails SET ?';
             conn.query(sql, data, (err, results) => {
                 if(err) {
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message 
+                    return res.status(500).json({
+                        message: "There's an error on the server. Please contact the administrator.",
+                        error: err.message
                     });
                 }
-                res.send(results); 
-            })  
+                res.send(results);
+            })
         } catch(err) {
-            return res.status(500).json({ 
-                message: "There's an error on the server. Please contact the administrator.", 
-                error: err.message 
+            return res.status(500).json({
+                message: "There's an error on the server. Please contact the administrator.",
+                error: err.message
             });
         }
     },
 
     bestSeller: (req,res) => {
         try {
-            var sql =  `SELECT 
+            var sql =  `SELECT
                         products.item AS item
                         FROM products
                         JOIN trxdetails ON trxdetails.idProduct = products.id
@@ -97,17 +97,17 @@ module.exports = {
                         ORDER BY SUM(trxdetails.qty) DESC LIMIT 1;`;
             conn.query(sql, (err, results) => {
                 if(err) {
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message 
+                    return res.status(500).json({
+                        message: "There's an error on the server. Please contact the administrator.",
+                        error: err.message
                     });
                 }
-                res.send(results); 
-            })  
+                res.send(results);
+            })
         } catch(err) {
-            return res.status(500).json({ 
-                message: "There's an error on the server. Please contact the administrator.", 
-                error: err.message 
+            return res.status(500).json({
+                message: "There's an error on the server. Please contact the administrator.",
+                error: err.message
             });
         }
     },
@@ -121,17 +121,17 @@ module.exports = {
                         ORDER BY SUM(trxdetails.qty) ASC LIMIT 1;`;
             conn.query(sql, (err, results) => {
                 if(err) {
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message 
+                    return res.status(500).json({
+                        message: "There's an error on the server. Please contact the administrator.",
+                        error: err.message
                     });
                 }
-                res.send(results); 
-            })  
+                res.send(results);
+            })
         } catch(err) {
-            return res.status(500).json({ 
-                message: "There's an error on the server. Please contact the administrator.", 
-                error: err.message 
+            return res.status(500).json({
+                message: "There's an error on the server. Please contact the administrator.",
+                error: err.message
             });
         }
     },
@@ -146,14 +146,14 @@ module.exports = {
         var sql = `UPDATE trxdetails SET qrcode = '${code}' WHERE idTrx = '${req.params.id}'`;
         conn.query(sql, (err, results) => {
             if(err) {
-                return res.status(500).json({ 
-                    message: "There's an error on the server. Please contact the administrator.", 
-                    error: err.message 
+                return res.status(500).json({
+                    message: "There's an error on the server. Please contact the administrator.",
+                    error: err.message
                 });
             }
             res.send(results);
 
-            var sql = ` SELECT 
+            var sql = ` SELECT
                         products.startDate AS startDate,
                         products.endDate AS endDate,
                         products.startTime AS startTime,
@@ -167,9 +167,9 @@ module.exports = {
                         WHERE trxdetails.idTrx = '${req.params.id}'; `;
             conn.query(sql, (err,res) => {
                 if(err) {
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message 
+                    return res.status(500).json({
+                        message: "There's an error on the server. Please contact the administrator.",
+                        error: err.message
                     });
                 }
                 //Send confirmation email
@@ -182,7 +182,7 @@ module.exports = {
                             Your purchase with invoice: <strong>${req.body.invoice}</strong> has been confirmed.
                             <br/><br/>
                             Check-In Code: <strong>${code}</strong><br/>
-                            You can get the QR Code for check-in in the History menu. 
+                            You can get the QR Code for check-in in the History menu.
                             <br/><br/><br/>
                             Thank You.`
                 }
@@ -196,6 +196,6 @@ module.exports = {
                 });
             })
         });
-        
+
     }
 }

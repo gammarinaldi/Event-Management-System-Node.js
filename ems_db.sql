@@ -7,13 +7,13 @@
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
 -- Dumping database structure for ems
-CREATE DATABASE IF NOT EXISTS `ems` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE IF NOT EXISTS `ems` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci */;
 USE `ems`;
 
 -- Dumping structure for table ems.cart
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `username` varchar(50) DEFAULT NULL,
   `qty` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.cart: ~1 rows (approximately)
 DELETE FROM `cart`;
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.category: ~5 rows (approximately)
 DELETE FROM `category`;
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `city` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.location: ~8 rows (approximately)
 DELETE FROM `location`;
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   `desc` varchar(300) DEFAULT NULL,
   `datetime` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=504 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=504 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.log: ~46 rows (approximately)
 DELETE FROM `log`;
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `creator` varchar(50) DEFAULT NULL,
   `createdBy` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=303 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=303 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.products: ~11 rows (approximately)
 DELETE FROM `products`;
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `trx` (
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `invoice` (`invoice`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.trx: ~4 rows (approximately)
 DELETE FROM `trx`;
@@ -203,14 +203,14 @@ CREATE TABLE IF NOT EXISTS `trxdetails` (
   `idTrx` int(11) DEFAULT '0',
   `idProduct` int(11) DEFAULT '0',
   `qty` int(11) DEFAULT '0',
-  `barcode` varchar(100) DEFAULT '0',
+  `qrcode` varchar(100) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.trxdetails: ~5 rows (approximately)
 DELETE FROM `trxdetails`;
 /*!40000 ALTER TABLE `trxdetails` DISABLE KEYS */;
-INSERT INTO `trxdetails` (`id`, `idTrx`, `idProduct`, `qty`, `barcode`) VALUES
+INSERT INTO `trxdetails` (`id`, `idTrx`, `idProduct`, `qty`, `qrcode`) VALUES
 	(20, 35, 26, 1, '73112'),
 	(21, 36, 34, 4, '0'),
 	(22, 37, 24, 2, '0'),
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.users: ~6 rows (approximately)
 DELETE FROM `users`;
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   `idCategory` int(11) NOT NULL DEFAULT '0',
   `username` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- Dumping data for table ems.wishlist: ~9 rows (approximately)
 DELETE FROM `wishlist`;

@@ -2,11 +2,11 @@ const conn = require('../database');
 
 module.exports = {
     getListCart: (req,res) => {
-        var sql =  `SELECT 
+        var sql =  `SELECT
                     cart.id AS idCart,
                     products.id AS idProduct,
-                    products.item AS item, 
-                    products.price AS price, 
+                    products.item AS item,
+                    products.price AS price,
                     products.img AS img,
                     category.name AS categoryName,
                     cart.qty AS qty
@@ -17,15 +17,13 @@ module.exports = {
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
-        });   
+        });
     },
 
     cartCount: (req,res) => {
         var sql = `SELECT SUM(qty) AS totalQty FROM cart WHERE username='${req.body.username}';`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
-            console.log(sql);
-            console.log(results[0].totalQty)
             res.send(results[0]);
         })
     },
@@ -36,9 +34,9 @@ module.exports = {
             var sql = `SELECT * FROM cart WHERE idProduct = '${data.idProduct}' AND username='${data.username}'`;
             conn.query(sql, (err,results) => {
                 if(err) {
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message 
+                    return res.status(500).json({
+                        message: "There's an error on the server. Please contact the administrator.",
+                        error: err.message
                     });
                 }
 
@@ -47,9 +45,9 @@ module.exports = {
                     var sql = `UPDATE cart SET qty = '${qty}' WHERE idProduct = '${data.idProduct}' AND username='${data.username}'`;
                     conn.query(sql, (err,results) => {
                         if(err) {
-                            return res.status(500).json({ 
-                                message: "There's an error on the server. Please contact the administrator.", 
-                                error: err.message 
+                            return res.status(500).json({
+                                message: "There's an error on the server. Please contact the administrator.",
+                                error: err.message
                             });
                         }
                         res.send(results);
@@ -58,19 +56,19 @@ module.exports = {
                     var sql = `INSERT INTO cart SET ?`;
                     conn.query(sql, data, (err, results) => {
                         if(err) {
-                            return res.status(500).json({ 
-                                message: "There's an error on the server. Please contact the administrator.", 
-                                error: err.message 
+                            return res.status(500).json({
+                                message: "There's an error on the server. Please contact the administrator.",
+                                error: err.message
                             });
                         }
-                        res.send(results); 
+                        res.send(results);
                     })
                 }
-            })  
+            })
         } catch(err) {
-            return res.status(500).json({ 
-                message: "There's an error on the server. Please contact the administrator.", 
-                error: err.message 
+            return res.status(500).json({
+                message: "There's an error on the server. Please contact the administrator.",
+                error: err.message
             });
         }
     },
@@ -79,25 +77,25 @@ module.exports = {
         var sql = `SELECT * FROM cart WHERE id = '${req.params.id}';`;
         conn.query(sql, (err, results) => {
             if(err) throw err;
-    
+
             if(results.length > 0) {
                 try {
                     var data = req.body;
                     sql = `UPDATE cart SET ? WHERE id = '${req.params.id}';`
                     conn.query(sql, data, (err1,results1) => {
                         if(err1) {
-                            return res.status(500).json({ 
-                                message: "There's an error on the server. Please contact the administrator.", 
-                                error: err1.message 
+                            return res.status(500).json({
+                                message: "There's an error on the server. Please contact the administrator.",
+                                error: err1.message
                             });
                         }
                         res.send(results1);
                     })
                 }
                 catch(err){
-                    return res.status(500).json({ 
-                        message: "There's an error on the server. Please contact the administrator.", 
-                        error: err.message 
+                    return res.status(500).json({
+                        message: "There's an error on the server. Please contact the administrator.",
+                        error: err.message
                     });
                 }
             }
@@ -108,24 +106,24 @@ module.exports = {
         var sql = `SELECT * FROM cart WHERE id = '${req.params.id}';`;
         conn.query(sql, (err, results) => {
             if(err) {
-                return res.status(500).json({ 
-                    message: "There's an error on the server. Please contact the administrator.", 
+                return res.status(500).json({
+                    message: "There's an error on the server. Please contact the administrator.",
                     error: err.message });
             }
-            
+
             if(results.length > 0) {
                 sql = `DELETE FROM cart WHERE id = '${req.params.id}';`
                 conn.query(sql, (err1,results1) => {
                     if(err1) {
-                        return res.status(500).json({ 
-                            message: "There's an error on the server. Please contact the administrator.", 
+                        return res.status(500).json({
+                            message: "There's an error on the server. Please contact the administrator.",
                             error: err1.message });
                     }
                     res.send(results1);
                 })
             }
-        })   
-    
+        })
+
     },
 
     leftInCart: (req,res) => {
@@ -133,6 +131,6 @@ module.exports = {
         conn.query(sql, (err, results) => {
             if(err) throw err;
             res.send(results);
-        });   
+        });
     },
 }
