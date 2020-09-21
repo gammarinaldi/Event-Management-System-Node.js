@@ -18,7 +18,7 @@ module.exports = {
         if(productId) {
             var sql = `SELECT * FROM products WHERE id = '${productId}'`;
         } else {
-            var sql = `SELECT * FROM products WHERE creatorRole = '${creatorRole}' AND creatorName = '${creatorName}'`;
+            var sql = `SELECT * FROM products WHERE creatorRole = '${creatorRole}' AND createdBy = '${creatorName}'`;
         }
         conn.query(sql, (err, results) => {
             if(err) throw err;
@@ -28,7 +28,6 @@ module.exports = {
 
     addProduct: (req,res) => {
         try {
-
             const path = '/img/products'; //file save path
             const upload = uploader(path, 'PRD').fields([{ name: 'img'}]); //uploader(path, 'default prefix')
 
@@ -201,7 +200,7 @@ module.exports = {
         var sql = ` SELECT
                     trxdetails.idProduct AS idProduct,
                     products.item AS item,
-                    products.creatorName AS creatorName,
+                    products.createdBy AS createdBy,
                     category.name AS category,
                     location.city AS city,
                     SUM(qty) AS participant, (products.price * SUM(qty)) AS sales
@@ -209,7 +208,7 @@ module.exports = {
                     JOIN products ON products.id = trxdetails.idProduct
                     JOIN category ON products.idCategory = category.id
                     JOIN location ON products.idLocation = location.id
-                    WHERE qrcode > 0 AND products.creatorName = '${req.body.creatorName}'
+                    WHERE qrcode > 0 AND products.createdBy = '${req.body.creatorName}'
                     GROUP BY trxdetails.idProduct;`;
         conn.query(sql, (err,results) => {
             if(err) {
